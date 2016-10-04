@@ -37,6 +37,8 @@ git clone https://github.com/gmarik/Vundle.vim.git ./.vim/bundle/Vundle.vim
 pushd .
 cd ../
 
+link ".bash_profile" "dotfiles/.bash_profile"
+link ".zshrc" "dotfiles/.zshrc"
 link ".vim" "dotfiles/.vim"
 link ".vimrc" "dotfiles/.vimrc"
 link ".gvimrc" "dotfiles/.gvimrc"

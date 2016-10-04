@@ -38,6 +38,7 @@ au GUIEnter * simalt ~x
 let mapleader = "\\"
 let g:mapleader = "\\"
 
+
 command! -bar -nargs=* Gpurr execute 'Git pull --rebase' <q-args> 'origin' fugitive#head()
 command! Gnicelog Dispatch powershell gitvimlog
 :command! -nargs=+ GREP execute 'silent Ggrep!' <q-args> | cw | redraw!
