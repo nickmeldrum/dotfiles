@@ -39,6 +39,7 @@ cd ../
 
 link ".vim" "dotfiles/.vim"
 link ".vimrc" "dotfiles/.vimrc"
+link ".gvimrc" "dotfiles/.gvimrc"
 link ".ctags" "dotfiles/.ctags"
 link ".gitconfig" "dotfiles/.gitconfig"
 link ".globalgitignore" "dotfiles/.globalgitignore"
