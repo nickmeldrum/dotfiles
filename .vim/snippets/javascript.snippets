@@ -1,0 +1,40 @@
+ snippet log
+	window.console.log('${1:info}', ${2:obj}); //jshint ignore:line
+
+snippet func
+	function ${1:name}(${2:args}) {
+		${3:body}
+	}
+
+snippet debug
+	debugger; //jshint ignore:line
+
+snippet ignore
+	//jshint ignore:line
+
+snippet ignorefile
+	// jshint ignore: start
+
+snippet ignorefileend
+	// jshint ignore: end
+
+snippet ignoreglobal
+	/* global ${1:objectToIgnore} */
+
+snippet strict
+	'use strict';
+
+snippet desc
+	describe('${1:description}', function() {
+		${2:body}
+	});
+
+snippet it
+	it('${1:description}', function() {
+		${2:body}
+	});
+
+snippet before
+	beforeEach(function() {
+		${1:body}
+	});

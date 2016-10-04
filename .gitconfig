@@ -1,0 +1,41 @@
+[user]
+	name = Nick Meldrum
+	email = nick@nickmeldrum.com
+[alias]
+	st = status
+	cm = commit -v -m
+	ad = add -A
+	br = branch
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	files = "!f() { git diff --name-status $1^!; }; f"
+[pull]
+	rebase = false
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+[difftool "fugitive"]
+	cmd = gvim -f -c Gvdiff
+[merge]
+	tool = gvimdiff
+[mergetool "bc3"]
+	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+[mergetool "fugitive"]
+	cmd = gvim -f -c Gvdiff $MERGED
+[push]
+	default = simple
+[core]
+	editor = gvim -f
+	longpaths = true
+	autocrlf = true
+	excludesfile = ~/.globalgitignore
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[credential]
+	helper = !'D:\\nickmeldrum\\gitcredentialstore\\git-credential-winstore\\bin\\Debug\\git-credential-winstore.exe'
+
+[mergetool]
+	keepBackup = false
