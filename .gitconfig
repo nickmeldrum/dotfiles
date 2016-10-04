@@ -26,7 +26,7 @@
 [push]
 	default = simple
 [core]
-	editor = gvim -f
+	editor = vim
 	longpaths = true
 	autocrlf = true
 	excludesfile = ~/.globalgitignore
@@ -36,6 +36,6 @@
 	required = true
 [credential]
 	helper = !'D:\\nickmeldrum\\gitcredentialstore\\git-credential-winstore\\bin\\Debug\\git-credential-winstore.exe'
-
+	helper = osxkeychain
 [mergetool]
 	keepBackup = false

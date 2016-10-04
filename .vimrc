@@ -5,6 +5,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'w0ng/vim-hybrid'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'zeis/vim-kolor'
 Plugin 'tpope/vim-markdown'
@@ -266,14 +267,23 @@ set expandtab
 
 " color scheme for conemu (256 colors)
 if has("gui_running")
-else
-    set term=xterm
+    "gvim stuff
+    set guioptions -=m
+    set guioptions -=T
+    set guifont=Consolas:h12:cANSI
+    set guioptions -=r
+    set guioptions -=R
+    set guioptions -=l
+    set guioptions -=L
 endif
+    set term=xterm
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
+set t_Co=256
 "colorscheme zenburn
-"colorscheme distinguished
-colorscheme kolor
+colorscheme distinguished
+"colorscheme kolor
+"colorscheme hybrid
 
 inoremap jk <ESC>
 
@@ -351,8 +361,7 @@ command! MakeFontSmall set guifont=Consolas:h10:cANSI
 command! GL :diffget //2
 command! GR :diffget //3
 
-command! RemoveBadNewLines :%s///g
-
+command! RemoveBadNewLines :%s///g
 nmap <C-A> mzgg^V$G
 
 function! DoPrettyXML()
@@ -459,3 +468,10 @@ autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTre
 
 set foldmethod=indent
 set foldlevel=99
+
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+set showcmd
+
