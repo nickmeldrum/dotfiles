@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export TERM="xterm-256color"
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -7,8 +8,21 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="random"
+#ZSH_THEME="random"
 
+# powerline9k = nice looking, git status, history status nice fonts vslow
+#POWERLEVEL9K_MODE='awesome-fontconfig'
+#POWERLEVEL9K_MODE='awesome-patched'
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+ 
+# 2 line, v. fast - no git status, history status
+#ZSH_THEME="funky"
+
+# 1 line, simple, v. fast - git status, no history status
+#ZSH_THEME="maran"
+#
+ZSH_THEME="agnoster"
+#
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 

@@ -4,6 +4,8 @@ alias vsscribe="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.
 
 alias killnode="ps -W | awk '/node.exe/,NF=1' | xargs kill -9 -f"
 
+alias debughex="cat /dev/urandom | hexdump -C | grep 'ca fe'"
+
 alias g="git"
 
 function execline() {

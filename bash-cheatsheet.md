@@ -4,6 +4,7 @@
  * `cheat` echo this cheatsheet
  * `execline x y` execute line x from file y
  * `new-node-kata-project x` clone a node kata test project and set it up with name x
+ * `debughex` output a random hex dump to impress
 
 # Git
 
