@@ -2,7 +2,7 @@ alias killvs="ps -W | awk '/devenv.exe/,NF=1' | xargs kill -9 -f"
 alias vs="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe'"
 alias vsscribe="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe' d:/prod/scribestar.sln"
 
-alias killnode="ps -W | awk '/node.exe/,NF=1' | xargs kill -9 -f"
+alias killnode="ps | awk '/node.exe/,NF=1' | xargs kill -9 -f"
 
 alias debughex="cat /dev/urandom | hexdump -C | grep 'ca fe'"
 

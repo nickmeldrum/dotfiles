@@ -28,7 +28,6 @@
 [core]
 	editor = vim
 	longpaths = true
-	autocrlf = true
 	excludesfile = ~/.globalgitignore
 [filter "lfs"]
 	clean = git-lfs clean %f

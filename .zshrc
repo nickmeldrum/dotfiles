@@ -21,7 +21,8 @@ export ZSH=$HOME/.oh-my-zsh
 # 1 line, simple, v. fast - git status, no history status
 #ZSH_THEME="maran"
 #
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+ZSH_THEME="sorin"
 #
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

@@ -20,7 +20,7 @@ Plugin 'rbgrouleff/bclose.vim'
 Plugin 'mhinz/vim-grepper'
 Plugin 'mattn/emmet-vim'
 "Plugin 'marijnh/tern_for_vim'
-"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompletee'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
@@ -28,11 +28,12 @@ Plugin 'isRuslan/vim-es6'
 Plugin 'mxw/vim-jsx'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-dispatch'
-Plugin 'OmniSharp/omnisharp-vim'
+"Plugin 'OmniSharp/omnisharp-vim'
 "Plugin 'OmniSharp/omnisharp-roslyn'
 call vundle#end()
 
 filetype plugin indent on
+:set fileformat=unix
 
 au GUIEnter * simalt ~x
 
@@ -75,14 +76,6 @@ set statusline+=%L   " Total lines
 set statusline+=\      " Separator
 set statusline+=%{fugitive#statusline()} "git status
 
-"gvim stuff
-set guioptions -=m
-set guioptions -=T
-set guifont=Consolas:h12:cANSI
-set guioptions -=r
-set guioptions -=R
-set guioptions -=l
-set guioptions -=L
 
 set autoread
 
@@ -120,8 +113,8 @@ autocmd! FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
 autocmd! FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
 command! CsFindUsages OmniSharpFindUsages
 "finds members in the current buffer
-autocmd! FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
-command! CsFindMembers OmniSharpFindMembers
+autocmd! FileType cs nnoremap <leader>fm :OmniSharpFindembers<cr>
+command! CsFindembers OmniSharpFindembers
 " cursor can be anywhere on the line containing an issue
 autocmd! FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
 autocmd! FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
@@ -199,7 +192,7 @@ set ignorecase
 set smartcase
 " Highlight search results
 set hlsearch
-" Makes search act like search in modern browsers
+" akes search act like search in modern browsers
 set incsearch
 
 " No annoying sound on errors
@@ -361,10 +354,10 @@ command! MakeFontSmall set guifont=Consolas:h10:cANSI
 command! GL :diffget //2
 command! GR :diffget //3
 
-command! RemoveBadNewLines :%s///g
+command! RemoveBadNewLines :%s///g
 nmap <C-A> mzgg^V$G
 
-function! DoPrettyXML()
+function! DoPrettyXL()
     " save the filetype so we can restore it later
     let l:origft = &ft
     set ft=
@@ -374,9 +367,9 @@ function! DoPrettyXML()
     1s/<?xml .*?>//e
     " insert fake tags around the entire document.
     " This will permit us to pretty-format excerpts of
-    " XML that may contain multiple top-level elements.
-    0put ='<PrettyXML>'
-    $put ='</PrettyXML>'
+    " XL that may contain multiple top-level elements.
+    0put ='<PrettyXL>'
+    $put ='</PrettyXL>'
     silent %!xmllint --format -
     " xmllint will insert an <?xml?> header. it's easy enough to delete
     " if you don't want it.
@@ -391,7 +384,7 @@ function! DoPrettyXML()
     " restore the filetype
     exe "set ft=" . l:origft
 endfunction
-command! PrettyXML call DoPrettyXML()
+command! PrettyXL call DoPrettyXL()
 
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -430,7 +423,7 @@ command! BuildSupport Dispatch powershell buildsupport
 command! BuildScripts Dispatch powershell buildscripts
 command! GulpSite Dispatch cmd /C c:\tools\gulpsite.cmd
 command! GulpDocuments Dispatch cmd /C c:\tools\gulpdocuments.cmd
-command! GulpPartManagement Dispatch cmd /C c:\tools\gulppartmanagement.cmd
+command! GulpPartanagement Dispatch cmd /C c:\tools\gulppartmanagement.cmd
 command! GulpToolbar Dispatch cmd /C c:\tools\gulptoolbar.cmd
 command! GulpEditor Dispatch cmd /C c:\tools\gulpditaeditor.cmd
 command! GulpVerification Dispatch cmd /C c:\tools\gulpverification.cmd
