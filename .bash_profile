@@ -5,6 +5,7 @@ alias vsscribe="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.
 alias killnode="ps | awk '/node.exe/,NF=1' | xargs kill -9 -f"
 
 alias debughex="cat /dev/urandom | hexdump -C | grep 'ca fe'"
+alias myipaddress='ifconfig | grep "inet " | grep -v "127.0.0.1" | awk "{print \$2}"'
 
 alias g="git"
 
