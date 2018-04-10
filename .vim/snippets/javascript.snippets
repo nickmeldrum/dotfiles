@@ -1,7 +1,13 @@
 snippet rcomponent
-	export default class ${1:component} extends React.Component {
+	import React, { Component } from 'react';
+	import PropTypes from 'prop-types';
+
+	export default class ${1:component} extends Component {
+		static propTypes = {
+		}
+
 		constructor(props) {
-			super(props)
+			super(props);
 		}
 
 		render() {
@@ -20,16 +26,24 @@ snippet rstate
 
 
 snippet rstatelesscomponent
-	export default function ${1:component}(props) {
-		return <div>${2:body}</div>
-	}
+	import React from 'react';
+	import PropTypes from 'prop-types';
+
+	const ${1:component} = (props) => {
+	  return (
+		  ${2:body}
+	  );
+	};
+
+	$1.propTypes = {
+	};
+
+	export default $1;
 
 
 snippet react
-	'use strict'
-
-	import React from 'react'
-
+	import React from 'react';
+	import PropTypes from 'prop-types';
 
 
 snippet rproptypes
@@ -149,7 +163,7 @@ snippet rrhistorynavigate
 
 snippet func
 	function ${1:name}(${2:args}) {
-		${3:body}
+		${3:body};
 	}
 
 snippet preventdefault
@@ -157,7 +171,7 @@ snippet preventdefault
 
 
 snippet log
-	window.console.log('${1:info}', ${2:obj}); //jshint ignore:line
+	console.log('${1:info}', ${2:obj})
 
 snippet debug
 	debugger; //jshint ignore:line
@@ -179,28 +193,46 @@ snippet strict
 
 
 snippet importlibrary
-	import ${1:object} from '${2:library}'
+	import ${1:object} from '${2:library}';
 
 
 snippet importfromhere
-	import ${1:object} from './${2:file}'
+	import ${1:object} from './${2:file}';
 
 
 snippet importfromparent
-	import ${1:object} from '../${2:file}'
+	import ${1:object} from '../${2:file}';
 
 
 snippet tdescribe
-	describe('${1:description}', function() {
-		${2:body}
+	describe('${1:description}', () => {
+	  ${2:body}
 	})
 
 snippet tit
-	it('${1:description}', function() {
-		${2:body}
+	it('${1:description}', () => {
+	  ${2:body}
+	})
+
+snippet tito
+	it.only('${1:description}', () => {
+	  ${2:body}
 	})
 
 snippet tbefore
-	beforeEach(function() {
-		${1:body}
-	})
+	beforeEach(() => {
+	  ${1:body}
+	});
+
+snippet importexpect
+	import { expect } from 'chai'
+
+snippet importsinon
+	import { sandbox as sinonSandbox } from 'sinon'
+
+snippet createsandbox
+	const sandbox = sinonSandbox.create()
+	afterEach(() => sandbox.restore())
+
+snippet expectequal
+	expect(${1:false}).to.equal(${2:true});

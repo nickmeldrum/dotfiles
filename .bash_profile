@@ -9,6 +9,12 @@ alias myipaddress='ifconfig | grep "inet " | grep -v "127.0.0.1" | awk "{print \
 
 alias g="git"
 
+function blatdocker() {
+  docker stop $(docker ps -a -q)
+  docker rm $(docker ps -a -q)
+  docker rmi $(docker images -q)
+}
+
 function execline() {
     sed -n $1p $2 | source /dev/stdin
 }

@@ -9,26 +9,28 @@
 	unstage = reset HEAD --
 	last = log -1 HEAD
 	files = "!f() { git diff --name-status $1^!; }; f"
+	d = difftool
 [pull]
 	rebase = false
 [diff]
-	tool = bc3
+	tool = vimdiff
 [difftool "bc3"]
 	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
 [difftool "fugitive"]
-	cmd = gvim -f -c Gvdiff
+	cmd = vim -f -c vdiff
 [merge]
-	tool = gvimdiff
+	tool = vimdiff
 [mergetool "bc3"]
 	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
 [mergetool "fugitive"]
-	cmd = gvim -f -c Gvdiff $MERGED
+	cmd = vim -f -c vdiff $MERGED
 [push]
 	default = simple
 [core]
 	editor = vim
 	longpaths = true
 	excludesfile = ~/.globalgitignore
+    #pager = cat
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
@@ -38,3 +40,5 @@
 	helper = osxkeychain
 [mergetool]
 	keepBackup = false
+[difftool]
+	prompt = false

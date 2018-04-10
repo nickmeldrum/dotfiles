@@ -1,10 +1,10 @@
-set nocompatible
-
+set nocompatible 
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'zeis/vim-kolor'
@@ -26,8 +26,10 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'isRuslan/vim-es6'
 Plugin 'mxw/vim-jsx'
-Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-dispatch'
+Plugin 'mhartington/oceanic-next'
+Plugin 'w0rp/ale'
+Plugin 'vim-airline/vim-airline'
 "Plugin 'OmniSharp/omnisharp-vim'
 "Plugin 'OmniSharp/omnisharp-roslyn'
 call vundle#end()
@@ -37,10 +39,16 @@ filetype plugin indent on
 
 au GUIEnter * simalt ~x
 
-let mapleader = "\\"
-let g:mapleader = "\\"
+let mapleader = " "
 
-
+let g:ale_sign_column_always = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier', 'eslint'] 
+let g:ale_fix_on_save = 1
+"let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_prettier_use_local_config = 1
+nnoremap <leader>p :silent ALEFix<CR> 
 command! -bar -nargs=* Gpurr execute 'Git pull --rebase' <q-args> 'origin' fugitive#head()
 command! Gnicelog Dispatch powershell gitvimlog
 :command! -nargs=+ GREP execute 'silent Ggrep!' <q-args> | cw | redraw!
@@ -59,38 +67,24 @@ function! InsertStatuslineColor(mode)
     endif
 endfunction
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=LightYellow ctermfg=8 guifg=Black ctermbg=15
-
-set statusline=%f         " Path to the file
-set statusline+=\      " Separator
-set statusline+=%y        " Filetype of the file
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=\      " Separator
-set statusline+=%c    " Current col
-set statusline+=/    " Separator
-set statusline+=%l    " Current line
-set statusline+=/    " Separator
-set statusline+=%L   " Total lines
-set statusline+=\      " Separator
-set statusline+=%{fugitive#statusline()} "git status
-
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline guibg=LightYellow ctermfg=8 guifg=Black ctermbg=15
+"
+"set statusline=%f         " Path to the file
+"set statusline+=\      " Separator
+"set statusline+=%y        " Filetype of the file
+"set statusline+=%m      "modified flag
+"set statusline+=%r      "read only flag
+"set statusline+=\      " Separator
+"set statusline+=%c    " Current col
+"set statusline+=/    " Separator
+"set statusline+=%l    " Current line
+"set statusline+=/    " Separator
+"set statusline+=%L   " Total lines
+"set statusline+=\      " Separator
+"set statusline+=%{fugitive#statusline()} "git status
 
 set autoread
-
-"let g:syntastic_javascript_checkers = ['jshint']
-"let g:syntastic_javascript_checkers = ['eslint']
-"
-autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['jshint']
-
-let g:syntastic_xml_checkers = []
-let g:syntastic_xslt_checkers = []
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-"let g:syntastic_cs_checkers = ['code_checker']
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-let g:syntastic_always_populate_loc_list=1
 
 "let g:OmniSharp_server_type = 'v1'
 "let g:OmniSharp_server_type = 'roslyn'
@@ -101,7 +95,6 @@ let g:OmniSharp_selector_ui = 'ctrlp'
 
 autocmd! BufWritePost *.cs call OmniSharp#AddToProject()
 autocmd! CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-
 
 autocmd! FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
 command! CsGotoDef OmniSharpGotoDefinition
@@ -125,9 +118,6 @@ autocmd! FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
 "navigate down by method/property/field
 autocmd! FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
 
-"autocmd! BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
-"autocmd! BufEnter,TextChanged,InsertLeave *.js SyntasticCheck
-
 " turn off auto backing up - using google drive or git anyway right? :)
 set nobackup
 set noswapfile
@@ -144,8 +134,7 @@ set hidden
 
 command! ReadProse set wrap | normal zR
 "autocmd! BufEnter *.md ReadProse
-noremap <leader>p :ReadProse<cr>
-
+noremap <leader>pr :ReadProse<cr> 
 " allow spell check
 "set spell
 "set spelllang=en
@@ -210,6 +199,8 @@ set number
 syntax enable
 au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ejs set filetype=html
+j
+au BufNewFile,BufRead *.js set shiftwidth=2
 
 " Who doesn't like autoindent?
 set autoindent
@@ -273,10 +264,10 @@ endif
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 set t_Co=256
-"colorscheme zenburn
-colorscheme distinguished
+"colorscheme zenburn "colorscheme distinguished
 "colorscheme kolor
 "colorscheme hybrid
+colorscheme OceanicNext
 
 inoremap jk <ESC>
 
@@ -345,6 +336,16 @@ endfunction
 
 "autocmd! BufWritePre *.js :call RemoveTrailingWhitespaceFromFile() | :call AutoIndentFile()
 
+nnoremap ton :silent ?it(<CR>la.only<ESC>:noh<CR>
+nnoremap tnon :silent ?it.only<CR>lldt(:noh<CR>
+
+command! EditVimrc :e ~/.vimrc
+nnoremap <leader>ev :EditVimrc<CR> 
+augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+augroup END
+
 command! MakeFontBiggest set guifont=Consolas:h18:cANSI
 command! MakeFontBigger set guifont=Consolas:h16:cANSI
 command! MakeFontBig set guifont=Consolas:h14:cANSI
@@ -356,6 +357,12 @@ command! GR :diffget //3
 
 command! RemoveBadNewLines :%s///g
 nmap <C-A> mzgg^V$G
+
+function! FormatJSONFunc()
+  :%!python -m json.tool
+endfunction
+
+command! FormatJSON call FormatJSONFunc()
 
 function! DoPrettyXL()
     " save the filetype so we can restore it later
@@ -464,7 +471,165 @@ set foldlevel=99
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7" 
+set t_ZH=[3m
+set t_ZR=[23m
 
+set shiftwidth=2
 set showcmd
+highlight comment cterm=italic
+highlight Type cterm=italic
+"highlight Bold cterm=italic 
+"hi Debug cterm=italic
+"hi Directory cterm=italic
+"hi ErrorMsg cterm=italic
+"hi Exception cterm=italic
+"hi FoldColumn cterm=italic
+"hi Folded cterm=italic
+"hi IncSearch cterm=italic
+"hi Italic cterm=italic
+"hi Macro cterm=italic
+"hi MatchParen cterm=italic "hi ModeMsg cterm=italic
+"hi MoreMsg cterm=italic
+"hi Question cterm=italic
+"hi Search cterm=italic
+"hi SpecialKey cterm=italic
+"hi TooLong cterm=italic
+"hi Underlined cterm=italic
+"hi Visual cterm=italic
+"hi VisualNOS cterm=italic
+"hi WarningMsg cterm=italic
+"hi WildMenu cterm=italic
+"hi Title cterm=italic
+"hi Conceal cterm=italic
+"hi Cursor cterm=italic
+"hi NonText cterm=italic
+"hi Normal cterm=italic
+"hi LineNr cterm=italic
+"hi CursorLineNR cterm=italic
+"hi SignColumn cterm=italic
+"hi StatusLine cterm=italic
+"hi StatusLineNC cterm=italic
+"hi VertSplit cterm=italic
+"hi ColorColumn cterm=italic
+"hi CursorColumn cterm=italic
+"hi CursorLine cterm=italic
+"hi CursorLineNr cterm=italic
+"hi PMenu cterm=italic
+"hi PMenuSel cterm=italic
+"hi PmenuSbar cterm=italic
+"hi PmenuThumb cterm=italic
+"hi TabLine cterm=italic
+"hi TabLineFill cterm=italic
+"hi TabLineSel cterm=italic
+"hi helpExample cterm=italic
+"hi helpCommand cterm=italic
+"hi Boolean cterm=italic
+"hi Character cterm=italic
+"hi Conditional cterm=italic
+"hi Constant cterm=italic
+"hi Define cterm=italic
+"hi Delimiter cterm=italic
+"hi Float cterm=italic
+"hi Function cterm=italic
+"hi Identifier cterm=italic
+"hi Include cterm=italic
+"hi Keyword cterm=italic
+"hi Label cterm=italic
+"hi Number cterm=italic
+"hi Operator cterm=italic
+"hi PreProc cterm=italic
+"hi Repeat cterm=italic
+"hi Special cterm=italic
+"hi SpecialChar cterm=italic
+"hi Statement cterm=italic
+"hi StorageClass cterm=italic
+"hi String cterm=italic
+"hi Structure cterm=italic
+"hi Tag cterm=italic
+"hi Todo cterm=italic
+"hi Typedef cterm=italic
+"hi SpellBad cterm=italic
+"hi SpellLocal cterm=italic
+"hi SpellCap cterm=italic
+"hi SpellRare cterm=italic
+"hi csClass cterm=italic
+"hi csAttribute cterm=italic
+"hi csModifier cterm=italic
+"hi csType cterm=italic
+"hi csUnspecifiedStatement cterm=italic
+"hi csContextualStatement cterm=italic
+"hi csNewDecleration cterm=italic
+"hi cOperator cterm=italic
+"hi cPreCondit cterm=italic
+"hi cssColor cterm=italic
+"hi cssBraces cterm=italic
+"hi cssClassName cterm=italic
+"hi DiffAdd cterm=italic
+"hi DiffChange cterm=italic
+"hi DiffDelete cterm=italic
+"hi DiffText cterm=italic
+"hi DiffAdded cterm=italic
+"hi DiffFile cterm=italic
+"hi DiffNewFile cterm=italic
+"hi DiffLine cterm=italic
+"hi DiffRemoved cterm=italic
+"hi gitCommitOverflow cterm=italic
+"hi gitCommitSummary cterm=italic
+"hi htmlBold cterm=italic
+"hi htmlItalic cterm=italic
+"hi htmlTag cterm=italic
+"hi htmlEndTag cterm=italic
+"hi htmlArg cterm=italic
+"hi htmlTagName cterm=italic
+"hi javaScript cterm=italic
+"hi javaScriptNumber cterm=italic
+"hi javaScriptBraces cterm=italic
+"hi markdownCode cterm=italic
+"hi markdownCodeBlock cterm=italic
+"hi markdownHeadingDelimiter cterm=italic
+"hi markdownItalic cterm=italic
+"hi markdownBold cterm=italic
+"hi markdownCodeDelimiter cterm=italic
+"hi markdownError cterm=italic
+"hi NeomakeErrorSign cterm=italic
+"hi NeomakeWarningSign cterm=italic
+"hi NeomakeInfoSign cterm=italic
+"hi NeomakeError cterm=italic
+"hi NeomakeWarning cterm=italic
+"hi NERDTreeExecFile cterm=italic
+"hi NERDTreeDirSlash cterm=italic
+"hi NERDTreeOpenable cterm=italic
+"hi phpComparison cterm=italic
+"hi phpParent cterm=italic
+"hi phpMemberSelector cterm=italic
+"hi pythonRepeat cterm=italic
+"hi pythonOperator cterm=italic
+"hi rubyConstant cterm=italic
+"hi rubySymbol cterm=italic
+"hi rubyAttribute cterm=italic
+"hi rubyInterpolation cterm=italic
+"hi rubyInterpolationDelimiter cterm=italic
+"hi rubyStringDelimiter cterm=italic
+"hi rubyRegexp cterm=italic
+"hi sassidChar cterm=italic
+"hi sassClassChar cterm=italic
+"hi sassInclude cterm=italic
+"hi sassMixing cterm=italic
+"hi sassMixinName cterm=italic
+"hi vimfilerLeaf cterm=italic
+"hi vimfilerNormalFile cterm=italic
+"hi vimfilerOpenedFile cterm=italic
+"hi vimfilerClosedFile cterm=italic
+"hi GitGutterAdd cterm=italic
+"hi GitGutterChange cterm=italic
+"hi GitGutterDelete cterm=italic
+"hi GitGutterChangeDelete cterm=italic
+"hi xmlTag cterm=italic
+"hi xmlTagName cterm=italic
+"hi xmlEndTag cterm=italic
+
+hi Normal ctermbg=233
+
+"set mouse=a
 

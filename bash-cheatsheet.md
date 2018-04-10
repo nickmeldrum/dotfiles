@@ -11,3 +11,5 @@
  * `acg x` do a git add . then commit with message x
  * `log n` nice one liner git log showing n last commits defaulting to 5
  * `create-github-repo x` creates a new github repo with name x and pushes to it
+ * `git log oldbranch ^newbranch --no-merges` see commits on 1 branch but not on another
+ * `git --no-pager log --graph -30 --pretty=format:"%h %ad %an %s" -- filepath` see history with branch relationships of commits to a specific file
