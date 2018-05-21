@@ -30,6 +30,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'mhartington/oceanic-next'
 Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-scripts/Gundo'
 "Plugin 'OmniSharp/omnisharp-vim'
 "Plugin 'OmniSharp/omnisharp-roslyn'
 call vundle#end()
@@ -632,4 +633,14 @@ highlight Type cterm=italic
 hi Normal ctermbg=233
 
 "set mouse=a
+
+" Let's save undo info!
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+  call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
 
