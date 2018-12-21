@@ -25,7 +25,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'isRuslan/vim-es6'
-Plugin 'mxw/vim-jsx'
+"Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mhartington/oceanic-next'
 Plugin 'w0rp/ale'
@@ -44,8 +44,8 @@ let mapleader = " "
 
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier', 'eslint'] 
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
 "let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 let g:ale_javascript_prettier_use_local_config = 1
@@ -644,3 +644,5 @@ endif
 set undodir=~/.vim/undo-dir
 set undofile
 
+set noro
+autocmd! bufenter * set noro

@@ -110,3 +110,5 @@ if [ -f '/Users/tpunmeld/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/t
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc'; fi
+
+fpath=(/usr/local/share/zsh-completions $fpath)

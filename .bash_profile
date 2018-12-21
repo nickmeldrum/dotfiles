@@ -38,6 +38,10 @@ function cheat() {
     cat ~/dotfiles/bash-cheatsheet.md
 }
 
+function replace() {
+  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
+}
+
 function create-github-repo() {
     if [ "$#" -ne 1 ]; then
         echo "please pass in a repo name"
@@ -79,5 +83,20 @@ function new-node-kata-project() {
     echo "app in file 'lib/index.js', tests in file 'test/test.js'"
     echo "run the watcher with command 'npm run watch'"
 }
+
+function updateBranchToRemoteMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git merge
+  git merge master
+}
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+eval "$(rbenv init -)"
 
 cheat
