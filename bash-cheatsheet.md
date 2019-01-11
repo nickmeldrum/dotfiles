@@ -21,6 +21,9 @@
  * `git branch | grep -v "*" | xargs git branch -D` remove all local branches (hard delete!)
  * `git diff master...` see diff between current branch and master
  * `git diff master...branch` see diff between branch and master
+ * `git branch -D branchname` delete local branch (ignoring unmerged changes)
+ * `git push --delete origin branchname` delete remote branch
+ * `git clean -fd` remove untracked files (maintaining files in .gitignore eg. build files) `-xfd` to remove all files `-Xfd` to remove only ignored files (eg. kill build files but keep created files)
  * 3 way merging:
    * `[c` and `]c` 4 prev and next change
    * `/====` find next conflict
@@ -32,3 +35,8 @@
  * `:args **/*.mjs` load all js files into the args list
  * `:argdo %s/'src/'lib/gi | update` do a search and replace in all files in the args list
  * `:argdo normal @a` execute the macro in register a on all files in the args list
+
+# Aws cli
+
+ * `aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[*].{Name:AutoScalingGroupARN,Cap:DesiredCapacity,Min:MinSize,Max:MaxSize}"` see the maxsize set on an autoscaling group (for the maxclustersize in ecs checking)
+ * `aws-adfs login --adfs-host auth.fil.co` log in to aws cli on
