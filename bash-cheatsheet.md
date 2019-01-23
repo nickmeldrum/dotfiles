@@ -41,3 +41,4 @@
  * `aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[*].{Name:AutoScalingGroupARN,Cap:DesiredCapacity,Min:MinSize,Max:MaxSize}"` see the maxsize set on an autoscaling group (for the maxclustersize in ecs checking)
  * `aws-adfs login --adfs-host auth.fil.com` log in to aws cli on
  * `aws lambda list-functions --max-items 5000 --query "Functions[*].{Name:FunctionName}" --output text | sort > ../gdw-info/lambdas.list` list all lambdas by name, sort them and pipe the results to a file
+ * `aws lambda list-functions --max-items 5000 --query 'Functions[?starts_with(FunctionName, `nickmeldrum`)].{Name:FunctionName}' --output text | sort` list all lambdas by name, filtering on a portion of the name
