@@ -93,6 +93,14 @@ function updateBranchToRemoteMaster() {
   git merge
   git merge master
 }
+function rebaseBranchOnLatestMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git rebase master
+}
 
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"

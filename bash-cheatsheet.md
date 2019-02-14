@@ -6,6 +6,7 @@
  * `new-node-kata-project x` clone a node kata test project and set it up with name x
  * `debughex` output a random hex dump to impress
  * `replace *.js search replace` search and replace in files recursively (search is a regex)
+ * `echo '{"foo": "bar"}' | postjson __test-support/customer` use curl to post json from stdin to local endpoint
 
 # Git
 
@@ -38,5 +39,15 @@
 
 # Aws cli
 
- * `aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[*].{Name:AutoScalingGroupARN,Cap:DesiredCapacity,Min:MinSize,Max:MaxSize}"` see the maxsize set on an autoscaling group (for the maxclustersize in ecs checking)
  * `aws-adfs login --adfs-host auth.fil.co` log in to aws cli on
+ * `aws autoscaling describe-auto-scaling-groups --query "AutoScalingGroups[*].{Name:AutoScalingGroupARN,Cap:DesiredCapacity,Min:MinSize,Max:MaxSize}"` see the maxsize set on an autoscaling group (for the maxclustersize in ecs checking)
+ * `aws lambda update-function-code --function-name nickmeldrum-InvestmentModels --zip-file fileb://target/investment-models.zip` update an individual lambdas code with local package
+
+# Postgres locally
+
+ * `brew install postgres` install postgres
+ * `pg_ctl -D /usr/local/var/postgres start` start server
+ * `pg_ctl -D /usr/local/var/postgres stop` stop server
+ * `psql -d customer -U localuser -p 5433 -h localhost` postgres client cli
+ * `export PGPASSWORD=mysecretpassword` set password for above connection
+ * `SELECT * FROM pg_catalog.pg_tables;` in psql - list all tables
