@@ -35,7 +35,11 @@ function log() {
 }
 
 function cheat() {
-    cat ~/dotfiles/bash-cheatsheet.md
+  cat ~/dotfiles/bash-cheatsheet.md
+}
+
+function replace() {
+  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
 }
 
 function replace() {
@@ -84,6 +88,9 @@ function new-node-kata-project() {
     echo "run the watcher with command 'npm run watch'"
 }
 
+export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
+export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
+
 function updateBranchToRemoteMaster() {
   CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
   git checkout master
@@ -93,6 +100,7 @@ function updateBranchToRemoteMaster() {
   git merge
   git merge master
 }
+
 function rebaseBranchOnLatestMaster() {
   CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
   git checkout master
