@@ -110,3 +110,11 @@ if [ -f '/Users/tpunmeld/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/t
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH=/Users/nickmeldrum/Library/Python/3.6/bin:$PATH
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

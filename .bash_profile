@@ -35,7 +35,7 @@ function log() {
 }
 
 function cheat() {
-    cat ~/dotfiles/bash-cheatsheet.md
+  cat ~/dotfiles/bash-cheatsheet.md
 }
 
 function create-github-repo() {
@@ -79,5 +79,15 @@ function new-node-kata-project() {
     echo "app in file 'lib/index.js', tests in file 'test/test.js'"
     echo "run the watcher with command 'npm run watch'"
 }
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
+export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
+
+export DNSIMPLE_TOKEN=MllitGw8Y4T8jN2KcQdI5L6lInW13Kki
+export GITHUB_TOKEN=275d6f0f050fe3cc8a99a178bf4062087e5f25e8
+export TRAVIS_TOKEN=a94b4HRHY1du692beoHsQQ
 
 cheat
