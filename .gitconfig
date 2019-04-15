@@ -36,8 +36,8 @@
 	smudge = git-lfs smudge %f
 	required = true
 [credential]
-	helper = !'D:\\nickmeldrum\\gitcredentialstore\\git-credential-winstore\\bin\\Debug\\git-credential-winstore.exe'
-	helper = osxkeychain
+    #helper = !'D:\\nickmeldrum\\gitcredentialstore\\git-credential-winstore\\bin\\Debug\\git-credential-winstore.exe'
+    #helper = osxkeychain
 [mergetool]
 	keepBackup = false
 [difftool]

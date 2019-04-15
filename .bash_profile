@@ -38,6 +38,10 @@ function cheat() {
   cat ~/dotfiles/bash-cheatsheet.md
 }
 
+function replace() {
+  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
+}
+
 function create-github-repo() {
     if [ "$#" -ne 1 ]; then
         echo "please pass in a repo name"
@@ -86,8 +90,28 @@ export NVM_DIR="$HOME/.nvm"
 export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
 export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
 
-export DNSIMPLE_TOKEN=MllitGw8Y4T8jN2KcQdI5L6lInW13Kki
-export GITHUB_TOKEN=275d6f0f050fe3cc8a99a178bf4062087e5f25e8
-export TRAVIS_TOKEN=a94b4HRHY1du692beoHsQQ
+function updateBranchToRemoteMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git merge
+  git merge master
+}
+
+function rebaseBranchOnLatestMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git rebase master
+}
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+eval "$(rbenv init -)"
 
 cheat

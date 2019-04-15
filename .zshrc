@@ -118,3 +118,5 @@ export PATH=/Users/nickmeldrum/Library/Python/3.6/bin:$PATH
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+fpath=(/usr/local/share/zsh-completions $fpath)

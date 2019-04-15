@@ -20,18 +20,24 @@ Plugin 'rbgrouleff/bclose.vim'
 Plugin 'mhinz/vim-grepper'
 Plugin 'mattn/emmet-vim'
 "Plugin 'marijnh/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompletee'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'isRuslan/vim-es6'
-Plugin 'mxw/vim-jsx'
+"Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mhartington/oceanic-next'
 Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-scripts/Gundo'
 "Plugin 'OmniSharp/omnisharp-vim'
 "Plugin 'OmniSharp/omnisharp-roslyn'
+Plugin 'leafgarland/typescript-vim'
+"Plugin 'Quramy/tsuquyomi'
+"Plugin 'stephpy/vim-yaml'
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 filetype plugin indent on
@@ -43,11 +49,9 @@ let mapleader = " "
 
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier', 'eslint'] 
-let g:ale_linters = {}
-let g:ale_linters['javascript'] = ['prettier', 'eslint'] 
-"let g:ale_fix_on_save = 1
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_fix_on_save = 1
 "let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 let g:ale_javascript_prettier_use_local_config = 1
 nnoremap <leader>p :silent ALEFix<CR> 
@@ -201,9 +205,8 @@ set number
 syntax enable
 au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ejs set filetype=html
-j
-au BufNewFile,BufRead *.js set shiftwidth=2
 
+au BufNewFile,BufRead *.js set shiftwidth=4 
 " Who doesn't like autoindent?
 set autoindent
 
@@ -313,6 +316,19 @@ endfunction
 command! GotoImport call GotoImportInCurrentWindow()
 command! GotoImportInSplit call GotoImportInNewSplit()
 command! GotoImportInVSplit call GotoImportInNewVerticalSplit()
+
+set path=.,./src,./node_modules
+set suffixesadd=.js,.jsx,.ts,.tsx
+
+function! LoadNodeModules(fname)
+    let moduleRoot = '~/src/gdw/modules/'
+    let indexFile = '/src/index.ts'
+
+    let output = moduleRoot . substitute(a:fname, "gdw/", "", "") . indexFile
+    return output
+endfunction
+
+set includeexpr=LoadNodeModules(v:fname)
 
 function! AutoIndentFile()
     :normal mzgg=G'z
@@ -477,7 +493,7 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 set t_ZH=[3m
 set t_ZR=[23m
 
-set shiftwidth=2
+set shiftwidth=4
 set showcmd
 highlight comment cterm=italic
 highlight Type cterm=italic
@@ -635,3 +651,18 @@ hi Normal ctermbg=233
 
 "set mouse=a
 
+" Let's save undo info!
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+  call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
+
+set noro
+autocmd! bufenter * set noro
+let g:NERDTreeNodeDelimiter = "\u00a0"
+" Open markdown files with Chrome.
+autocmd BufEnter *.md exe 'noremap <F5> :! /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %:p<CR>'
