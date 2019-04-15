@@ -38,6 +38,7 @@ Plugin 'leafgarland/typescript-vim'
 "Plugin 'stephpy/vim-yaml'
 Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'will133/vim-dirdiff'
 call vundle#end()
 
 filetype plugin indent on
