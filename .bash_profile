@@ -110,9 +110,8 @@ function rebaseBranchOnLatestMaster() {
   git rebase master
 }
 
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
-eval "$(rbenv init -)"
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="\vim"
 
 cheat

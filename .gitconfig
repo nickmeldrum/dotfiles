@@ -46,3 +46,5 @@
 	user = nickmeldrum
 [ghi]
 	token = !security find-internet-password -a nickmeldrum -s github.com -l 'ghi token' -w
+[http]
+    sslVerify = false

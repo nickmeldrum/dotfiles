@@ -1,49 +1,13 @@
 #!/usr/bin/env bash
 
-# We still need this.
-windows() { [[ -n "$WINDIR" ]]; }
-
-# Cross-platform symlink function. With one parameter, it will check
-# whether the parameter is a symlink. With two parameters, it will create
-# a symlink to a file or directory, with syntax: link $linkname $target
-link() {
-    if [[ -z "$2" ]]; then
-        # Link-checking mode.
-        if windows; then
-            fsutil reparsepoint query "$1" > /dev/null
-        else
-            [[ -h "$1" ]]
-        fi
-    else
-        # Link-creation mode.
-        if windows; then
-            # Windows needs to be told if it's a directory or not. Infer that.
-            # Also: note that we convert `/` to `\`. In this case it's necessary.
-            if [[ -d "$2" ]]; then
-                cmd <<< "mklink /D \"${1//\//\\}\" \"${2//\//\\}\"" > /dev/null
-            else
-                cmd <<< "mklink \"${1//\//\\}\" \"${2//\//\\}\"" > /dev/null
-            fi
-        else
-            # You know what? I think ln's parameters are backwards.
-            ln -s "$2" "$1"
-        fi
-    fi
-}
-
-rm -rf ./.vim/bundle/Vundle.vim
-git clone https://github.com/gmarik/Vundle.vim.git ./.vim/bundle/Vundle.vim
-
-pushd .
-cd ../
-
-link ".bash_profile" "dotfiles/.bash_profile"
-link ".zshrc" "dotfiles/.zshrc"
-link ".vim" "dotfiles/.vim"
-link ".vimrc" "dotfiles/.vimrc"
-link ".gvimrc" "dotfiles/.gvimrc"
-link ".ctags" "dotfiles/.ctags"
-link ".gitconfig" "dotfiles/.gitconfig"
-link ".globalgitignore" "dotfiles/.globalgitignore"
-
-popd
+mkdir -p ~/.config
+ln -sf ~/dotfiles/.bash_profile ~/.bash_profile
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.tern-config ~/.tern-config
+ln -sf ~/dotfiles/.vim ~/.vim
+ln -sf ~/dotfiles/.nvim ~/.config/nvim
+ln -sf ~/dotfiles/.vimrc ~/.vimrc
+ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
+ln -sf ~/dotfiles/.ctags ~/.ctags
+ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/dotfiles/.globalgitignore ~/.globalgitignore

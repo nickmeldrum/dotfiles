@@ -10,14 +10,140 @@
 
 
 
-"""""" PLUGINS """""""""""
-""""""""""""""""""""""""""
+"""""" Plugin installs """""""""""
+""""""""""""""""""""""""""""""""""
 
 call plug#begin()
+
+" autocompletion
+" """""""""""""""""""""
+" deoplete autocomplete tool
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" For func argument completion
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+" javascript autocomplete
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+Plug 'carlitux/deoplete-ternjs'
+" typescript autocomplete
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+Plug 'mhartington/deoplete-typescript'
+
+
+" linting
+" """"""""""""
+Plug 'neomake/neomake', { 'on': 'Neomake' }
+
+
+" files
+" """"""""""""
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'rking/ag.vim'
+
+
+" buffers
+" """"""""""""
+Plug 'jlanzarotta/bufexplorer'
+Plug 'mhinz/vim-startify'
+Plug 'rbgrouleff/bclose.vim'
+
+
+" ctags
+" """""""""""
+Plug 'ludovicchabant/vim-gutentags'
+
+" git
+" """""""""""
+Plug 'tpope/vim-fugitive'
+
+
+" editing
+" """"""""""""
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+
+" statusline
+" """"""""""""""""
+Plug 'bling/vim-airline'
+
+" color schemes
+" """"""""""""""""""
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'mhartington/oceanic-next'
+
 call plug#end()
 
 
+
+"""""""""" Plugin settings """"""""""
+"""""""""""""""""""""""""""""""""""""
+
+" nerdtree
+" close vim if nerdtree only window left open
+autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd BufEnter * lcd %:p:h
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+
+" neosnippet
+let g:neosnippet#enable_completed_snippet = 1
+
+" tern
+let g:tern_request_timeout = 1
+let g:tern_request_timeout = 6000
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+let g:deoplete#sources#tss#javascript_support = 1
+let g:tsuquyomi_javascript_support = 1
+let g:tsuquyomi_auto_open = 1
+let g:tsuquyomi_disable_quickfix = 1
+
+" neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+
+autocmd! BufWritePost * Neomake
+let g:neomake_warning_sign = {
+  \ 'text': '?',
+  \ 'texthl': 'WarningMsg',
+  \ }
+
+let g:neomake_error_sign = {
+  \ 'text': 'X',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
+" fzf
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)<Paste>
+
+function! s:find_git_root()
+	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'GFiles' s:find_git_root()
+
+" colorschemes
+set background=dark
+
+colorscheme palenight
+" let g:palenight_terminal_italics=1
+
+"colorscheme OceanicNext
+let g:airline_theme='oceanicnext'
 
 """""" APP """""""""""
 """"""""""""""""""""""
@@ -36,6 +162,10 @@ set visualbell
 " show partial commands on the right of the command window
 set showcmd
 
+" enable true colors
+if (has("termguicolors"))
+ set termguicolors
+endif
 
 """""""""" STATUS LINE """""""
 """"""""""""""""""""""""""""""
@@ -153,29 +283,6 @@ set wildignore+=coverage/**
 set wildignore+=tags
 set wildignore+=target/**
 set wildignore+=.teamcity/**
-
-
-
-"""""""""" Plugins """"""""""
-""""""""""""""""""""""""""""""
-
-" ctrl-p
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_max_files = 0
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn|teamcity|vs)$\|node_modules$\|bower_components$\|packages$\|3rdparty$\|coverage$\|target$',
-            \ 'file': '\v\.(exe|so|dll|class)$'
-            \ }
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-
-" nerdtree
-" close vim if nerdtree only window left open
-autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 
