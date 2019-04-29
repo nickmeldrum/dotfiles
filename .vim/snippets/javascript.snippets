@@ -1,0 +1,238 @@
+snippet rcomponent
+	import React, { Component } from 'react';
+	import PropTypes from 'prop-types';
+
+	export default class ${1:component} extends Component {
+		static propTypes = {
+		}
+
+		constructor(props) {
+			super(props);
+		}
+
+		render() {
+			return (
+				<div>
+					${2:body}
+				</div>
+			)
+		}
+	}
+
+snippet rstate
+	this.state = {
+		${1:key}: ${2:value}
+	}
+
+
+snippet rstatelesscomponent
+	import React from 'react';
+	import PropTypes from 'prop-types';
+
+	const ${1:component} = (props) => {
+	  return (
+		  ${2:body}
+	  );
+	};
+
+	$1.propTypes = {
+	};
+
+	export default $1;
+
+
+snippet react
+	import React from 'react';
+	import PropTypes from 'prop-types';
+
+
+snippet rproptypes
+	${1:component}.propTypes = {
+		${2:key}: ${3:value}
+	}
+
+
+snippet rdefaultprops
+	${1:component}.defaultProps = {
+		${2:key}: ${3:value}
+	}
+
+
+snippet rdisplayname
+	${1:component}.displayName = ${2:name}
+
+snippet rfunc
+	${1:name}(${2:args}) {
+		${3:body}
+	}
+
+
+snippet rfuncbind
+	this.${1:name} = this.$1.bind(this)
+
+snippet rwillmount
+	componentWillMount() {
+		${1:body}
+	}
+
+
+snippet rdidmount
+	componentDidMount() {
+		${1:body}
+	}
+
+
+snippet rwillreceiveprops
+	componentWillReceiveProps(nextProps) {
+		${1:body}
+	}
+
+
+snippet rshouldcomponentupdate
+	shouldComponentUpdate(nextProps, nextState) {
+		${1:body}
+	}
+
+
+snippet rwillupdate
+	componentWillUpdate(nextProps, nextState) {
+		${1:body}
+	}
+	
+
+snippet rdidupdate
+	componentDidUpdate(prevProps, prevState) {
+		${1:body}
+	}
+	
+
+snippet rwillunmount
+	componentWillUnmount() {
+		${1:body}
+	}
+	
+
+snippet rsetstate
+	this.setState({${1:key}: ${2:value}})
+
+snippet rsetstatefunc
+	this.setState((prevState, props) => {
+	  return {${1:key}: ${2:value}}
+	})
+
+snippet rdaction
+	export function ${1:name}(${2:payload}) {
+		return { type: '${3:actionType}', $2 }
+	}
+
+
+snippet rdasyncaction
+	export function ${1:name}(${2:payload}) {
+		return function (dispatch) {
+			${3:body}
+		}
+	}
+
+
+snippet rdconnectimport
+	import { connect } from 'react-redux'
+
+
+snippet rdmapstatetoprops
+
+snippet rdmapdispatchtoprops
+	const mapDispatchToProps = (dispatch) => {
+		return {
+			${1:key}: ${2:value}
+		}
+	}
+
+snippet rdexportconnect
+	export default connect(
+	  mapStateToProps,
+	  mapDispatchToProps
+	)(${1:component})
+
+snippet rrhistoryimport
+	import { browserHistory } from 'react-router'
+
+
+snippet rrhistorynavigate
+	browserHistory.push(${1:location})
+
+
+snippet func
+	function ${1:name}(${2:args}) {
+		${3:body};
+	}
+
+snippet preventdefault
+	event.preventDefault()
+
+
+snippet log
+	console.log('${1:info}', ${2:obj})
+
+snippet debug
+	debugger; //jshint ignore:line
+
+snippet ignore
+	//jshint ignore:line
+
+snippet ignorefile
+	// jshint ignore: start
+
+snippet ignorefileend
+	// jshint ignore: end
+
+snippet ignoreglobal
+	/* global ${1:objectToIgnore} */
+
+snippet strict
+	'use strict'
+
+
+snippet importlibrary
+	import ${1:object} from '${2:library}';
+
+
+snippet importfromhere
+	import ${1:object} from './${2:file}';
+
+
+snippet importfromparent
+	import ${1:object} from '../${2:file}';
+
+
+snippet tdescribe
+	describe('${1:description}', () => {
+	  ${2:body}
+	})
+
+snippet tit
+	it('${1:description}', () => {
+	  ${2:body}
+	})
+
+snippet tito
+	it.only('${1:description}', () => {
+	  ${2:body}
+	})
+
+snippet tbefore
+	beforeEach(() => {
+	  ${1:body}
+	});
+
+snippet importexpect
+	import { expect } from 'chai'
+
+snippet importsinon
+	import { sandbox as sinonSandbox } from 'sinon'
+
+snippet createsandbox
+	const sandbox = sinonSandbox.create()
+	afterEach(() => sandbox.restore())
+
+snippet expectequal
+	expect(${1:false}).to.equal(${2:true});
