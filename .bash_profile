@@ -35,7 +35,7 @@ function log() {
 }
 
 function cheat() {
-  cat ~/dotfiles/bash-cheatsheet.md
+  cat ~/dotfiles/cheatsheet.md
 }
 
 function replace() {
@@ -117,5 +117,7 @@ alias cleanall="git clean -xfd" # like you just did a git clone - delete .gitign
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="\vim"
+
+alias gamend="g commit --amend --no-edit"
 
 cheat

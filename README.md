@@ -42,11 +42,20 @@ Just run `./install` to symlink all the 'dotfiles' (configuration)
 ## TODO
 
  * for neovim:
-   * sort out typescript errors
    * sort out eslint exe error
    * add keybindings for fzf and ag
    * ensure ctags imports works with gdw monorepo @imports?
    * does ctags work across files for goto def in project?
+   * Ag and Gag - ignoring .files?
+   * `Gag cheat` does not work when in root dir - does Gag not search files in current dir only child dirs?
+   * set tab for autocomplete in insert mode
+   * update cheatsheet with:
+     * goyo/limelight
+     * easymotion
+     * fzf / ag / grep
+     * autocompletion
+     * linting - use of loclist
+     * searching in fiels - use of loclist
  * terminal - use hyper?
    * italics support?
    * better font?

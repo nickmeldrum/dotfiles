@@ -31,11 +31,9 @@ Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'rudism/deoplete-tsuquyomi'
 
-
 " linting
 " """"""""""""
 Plug 'neomake/neomake'
-
 
 " files
 " """"""""""""
@@ -43,13 +41,11 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-
 " buffers
 " """"""""""""
 Plug 'jlanzarotta/bufexplorer'
 Plug 'mhinz/vim-startify'
 Plug 'rbgrouleff/bclose.vim'
-
 
 " ctags
 " """""""""""
@@ -59,11 +55,11 @@ Plug 'ludovicchabant/vim-gutentags'
 " """""""""""
 Plug 'tpope/vim-fugitive'
 
-
 " editing
 " """"""""""""
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
+Plug 'dhruvasagar/vim-table-mode'
 
 " statusline
 " """"""""""""""""
@@ -89,7 +85,11 @@ call plug#end()
 " nerdtree
 " close vim if nerdtree only window left open
 autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-autocmd BufEnter * lcd %:p:h
+
+" set working dir to current file (silently fail because otherwise fugitive
+" gets upset)
+" (note we could use set autochdir - not sure why i don't)
+autocmd BufEnter * silent! lcd %:p:h
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -120,17 +120,9 @@ let g:tsuquyomi_disable_quickfix = 1
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-
-autocmd! BufWritePost * Neomake
-let g:neomake_warning_sign = {
-  \ 'text': '?',
-  \ 'texthl': 'WarningMsg',
-  \ }
-
-let g:neomake_error_sign = {
-  \ 'text': 'X',
-  \ 'texthl': 'ErrorMsg',
-  \ }
+let g:neomake_typescript_enabled_makers = ['tslint']
+call neomake#configure#automake('w')
+"autocmd! BufWritePost * Neomake
 
 " fzf
 " run grep in whole git dir
@@ -170,6 +162,8 @@ colorscheme palenight
 
 "colorscheme OceanicNext
 let g:airline_theme='oceanicnext'
+
+
 
 """""" APP """""""""""
 """"""""""""""""""""""
@@ -264,8 +258,7 @@ set splitright
 set foldlevel=99
 set foldmethod=indent
 
-autocmd! BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd! BufNewFile,BufReadPost *.vm set filetype=vim
+autocmd! BufNewFile,BufReadPost *.md set filetype=markdown | set syntax=markdown
 
 " start editing last file
 command! GoL :e#
