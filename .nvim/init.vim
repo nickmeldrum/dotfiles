@@ -248,7 +248,7 @@ noremap <c-j> j<c-e>
 noremap <c-k> k<c-y>
 
 " map ctrl-p to Gag (fuzzy file searching)
-noremap <C-P> :Gag<CR>
+noremap <C-P> :GFiles<CR>
 
 
 

@@ -42,6 +42,7 @@
 
 ## FZF - fuzzy file searcher
 
+ * `CTRL-P` maps to GFiles - fuzzy filename searcher in whole of git repo
  * `Files PATH` search in all folders from cwd
  * `GFiles PATH` search in tracked folders from git root
  * `Commits` search through commits
