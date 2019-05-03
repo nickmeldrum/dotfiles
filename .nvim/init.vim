@@ -40,6 +40,7 @@ Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'dbakker/vim-projectroot'
 
 " buffers
 " """"""""""""
@@ -138,7 +139,7 @@ command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%', '?'),
   \                 <bang>0)
 
-command! -bang -nargs=+ -complete=dir Gag
+command! -bang -nargs=+ -complete=dir GagAllSrc
         \ call fzf#vim#ag_raw(<q-args> . ' ~/src',
         \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
@@ -247,9 +248,13 @@ nnoremap <C-n> :bnext<CR>
 noremap <c-j> j<c-e>
 noremap <c-k> k<c-y>
 
-" map ctrl-p to Gag (fuzzy file searching)
+" map ctrl-p to fuzzy file searching in root of git repo
 noremap <C-P> :GFiles<CR>
+noremap <leader>p :GFiles<CR>
 
+" map leader-f to fuzzy text searching in root of git repo
+noremap <leader>f :Gag<CR>
+command! Gag :ProjectRootExe Ag
 
 
 

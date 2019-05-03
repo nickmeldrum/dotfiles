@@ -42,7 +42,7 @@
 
 ## FZF - fuzzy file searcher
 
- * `CTRL-P` maps to GFiles - fuzzy filename searcher in whole of git repo
+ * `<leader>p` or `CTRL-P` maps to GFiles - fuzzy filename searcher in whole of git repo
  * `Files PATH` search in all folders from cwd
  * `GFiles PATH` search in tracked folders from git root
  * `Commits` search through commits
@@ -53,6 +53,7 @@
 
 ## Grep/ AG - text searcher
 
+ * `<leader>f` alias to `Gag`
  * `GGrep text` search in all tracked files using git grep
  * `Ag text` search in current folder with preview
  * `Gag text` search in all tracked files using Ag with preview
