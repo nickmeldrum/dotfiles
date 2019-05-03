@@ -241,11 +241,15 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " map control -n to next buffer
-:nnoremap <C-n> :bnext<CR>
+nnoremap <C-n> :bnext<CR>
 
 " scroll buffer while keeping cursor on same line relative to viewport
-map <c-j> j<c-e>
-map <c-k> k<c-y>
+noremap <c-j> j<c-e>
+noremap <c-k> k<c-y>
+
+" map ctrl-p to Gag (fuzzy file searching)
+noremap <C-P> :Gag<CR>
+
 
 
 
@@ -262,6 +266,11 @@ autocmd! BufNewFile,BufReadPost *.md set filetype=markdown | set syntax=markdown
 
 " start editing last file
 command! GoL :e#
+
+" reader mode
+command! ReaderMode :Goyo | :Limelight | set norelativenumber | set nonumber
+command! ReaderModeOff :Goyo | :Limelight! | set relativenumber
+
 
 
 """""""" FILES """""""""
