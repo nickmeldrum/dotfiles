@@ -52,7 +52,7 @@ function create-github-repo() {
         return
     fi
 
-    TOKEN="$(security 2>&1 >/dev/null find-generic-password -ga github-token | awk -F'"' '{ print $2 }')"
+    TOKEN="$(security find-generic-password -a nickmeldrum -s github-token -w)"
     curl "https://api.github.com/user/repos?access_token=${TOKEN}" -d "{\"name\":\"${1}\"}" -v
     git remote rm origin
     git remote add origin "https://github.com/nickmeldrum/${1}.git"
