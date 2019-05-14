@@ -23,6 +23,13 @@ vim +PluginInstall +qall
 brew install rbenv
 rbenv init
 
+# python
+brew install pyenv
+pyenv install 2.7.15
+pyenv global 2.7.15
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+brew install libtool libevent automake
+
 # neovim
 brew install neovim fzf the_silver_searcher
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
