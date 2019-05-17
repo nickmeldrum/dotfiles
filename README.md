@@ -19,7 +19,7 @@ Then you can just run `./fullsetup` if you are brave which attempts to automate 
 
 ## running it
 
-Just run `./install` to symlink all the 'dotfiles' (configuration)
+Just run `./link-dotfiles` to symlink all the 'dotfiles' (configuration)
 
  * symlink the config files
 

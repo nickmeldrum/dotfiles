@@ -68,6 +68,7 @@ Plug 'bling/vim-airline'
 
 " color schemes
 " """"""""""""""""""
+Plug 'rainglow/vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'mhartington/oceanic-next'
 
@@ -159,9 +160,7 @@ command! ProjectFiles execute 'GFiles' s:find_git_root()
 set background=dark
 
 colorscheme palenight
-" let g:palenight_terminal_italics=1
-
-"colorscheme OceanicNext
+let g:palenight_terminal_italics=1
 let g:airline_theme='oceanicnext'
 
 
@@ -254,7 +253,20 @@ noremap <leader>p :GFiles<CR>
 
 " map leader-f to fuzzy text searching in root of git repo
 noremap <leader>f :Gag<CR>
+noremap <leader>g :GGrep<CR>
 command! Gag :ProjectRootExe Ag
+
+" some default colorscheme choices
+nnoremap <leader>1 :colorscheme palenight<CR>
+nnoremap <leader>2 :colorscheme oceanicnext<CR>
+nnoremap <leader>3 :colorscheme soup<CR>
+nnoremap <leader>4 :colorscheme mud<CR>
+nnoremap <leader>5 :colorscheme absent<CR>
+nnoremap <leader>6 :colorscheme bold<CR>
+nnoremap <leader>7 :colorscheme azure<CR>
+nnoremap <leader>8 :colorscheme piggy<CR>
+nnoremap <leader>9 :colorscheme glowfish<CR>
+nnoremap <leader>0 :colorscheme industry<CR>
 
 
 
