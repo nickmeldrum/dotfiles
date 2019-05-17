@@ -14,3 +14,5 @@ ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
 ln -sf ~/dotfiles/.ctags ~/.ctags
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.globalgitignore ~/.globalgitignore
+ln -sf ~/dotfiles/.hyper.js ~/.hyper.js
+ln -sf ~/dotfiles/.hyper_plugins ~/.hyper_plugins
