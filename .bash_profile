@@ -42,10 +42,6 @@ function replace() {
   find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
 }
 
-function replace() {
-  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
-}
-
 function create-github-repo() {
     if [ "$#" -ne 1 ]; then
         echo "please pass in a repo name"

@@ -375,6 +375,12 @@ command! GetRight :diffget //3
 
 
 
+"""""""""" Git """"""""""
+""""""""""""""""""""""""""""""""
+command! GitPull :Git pull
+command! GitPush :Git push
+
+
 """""""""" JavaScript """"""""""
 """"""""""""""""""""""""""""""""
 

@@ -1,4 +1,4 @@
-# Bash
+# Bash (zsh)
 
  * `set -io vi` use vi keybindings for bash cmdline
  * `cheat` echo this cheatsheet
@@ -7,6 +7,7 @@
  * `debughex` output a random hex dump to impress
  * `replace *.js search replace` search and replace in files recursively (search is a regex)
  * `echo '{"foo": "bar"}' | postjson __test-support/customer` use curl to post json from stdin to local endpoint
+ * `^r` incrementally search backwards through history with preview
 
 # Git
 
@@ -40,6 +41,15 @@
  * startify: `SSave` and `SSLoad` for sessions
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line
  * `terminal` to enter terminal mode (should automatically act like terminal in terminal mode, but bug where you have to hit `i` to get into 'typing mode' currently - `<C>\<C>n` to exit 'terminal' mode
+ * Fugitive:
+   * `Gwrite` writes to disk + to index (like git add on working tree file or like checkout for history)
+   * `Gdiff` show side by side diff between staged and working tree
+   * `Gmove` does a git mv on file + renames buffer
+   * `Gdelete` does a git rm on file + deletes buffer
+   * `Gstatus` to see status and `-` against files to add/remove changes to index
+   * `Gcommit` git commit (will bring up buffer to write message)
+   * `GitPull` to pull changes
+   * `GitPush` to push changes
 
 ## FZF - fuzzy file searcher
 
