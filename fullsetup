@@ -63,3 +63,8 @@ echo remember to set 'load customer preferences to a custom folder' in iterm pre
 
 #hyper
 brew cask install hyper
+
+
+#colorlsd and fonticons
+brew install lsd
+brew install fontforge

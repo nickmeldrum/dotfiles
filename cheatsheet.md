@@ -40,7 +40,9 @@
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
  * startify: `SSave` and `SSLoad` for sessions
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line
- * `terminal` to enter terminal mode (should automatically act like terminal in terminal mode, but bug where you have to hit `i` to get into 'typing mode' currently - `<C>\<C>n` to exit 'terminal' mode
+ * Terminal mode:
+   * `terminal` to enter terminal mode
+   * `i` to enter and `ESC` to leave
  * Fugitive:
    * `Gwrite` writes to disk + to index (like git add on working tree file or like checkout for history)
    * `Gdiff` show side by side diff between staged and working tree
