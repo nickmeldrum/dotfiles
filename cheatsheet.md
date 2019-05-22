@@ -70,6 +70,7 @@
  * `GGrep text` search in all tracked files using git grep
  * `Ag text` search in current folder with preview
  * `Gag text` search in all tracked files using Ag with preview
+ * want non fuzzy searching? prefix search with a `'`
 
 # Aws cli
 
