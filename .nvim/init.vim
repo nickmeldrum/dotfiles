@@ -252,8 +252,8 @@ noremap <C-P> :GFiles<CR>
 noremap <leader>p :GFiles<CR>
 
 " map leader-f to fuzzy text searching in root of git repo
-noremap <leader>f :Gag<CR>
-noremap <leader>g :GGrep<CR>
+noremap <leader>g :Gag<CR>
+noremap <leader>G :GGrep<CR>
 command! Gag :ProjectRootExe Ag
 
 " some default colorscheme choices
@@ -476,3 +476,30 @@ endfunction
 command! PrettyXML call DoPrettyXML()
 
 set mouse=a
+
+
+
+""""""""""""""  Arithmetic  """"""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! Sum :normal vt xi<C-r>=<C-r>"<CR><Esc>
+
+
+
+""""" easy motion """"""
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+

@@ -52,6 +52,18 @@
    * `Gcommit` git commit (will bring up buffer to write message)
    * `GitPull` to pull changes
    * `GitPush` to push changes
+ * Expression register
+   * `<C>r` in insert mode to e.g. do arithmetic: `<C>r=2+2` will insert `4`
+   * when in command line to paste a register use `<C>r"` e.g. if the word foo is in the default register, replace foo with bar in whole document like: `%s/<C>r"/bar/g`
+   * `Sum` will take a sum (ending in a space) and replace it in the buffer with the answer
+
+ * Easy motion:
+   * `s` move to char char in all visible buffers
+   * `<leader>f` move to character in all visible buffers
+   * `<leader>w` move to word in all visible buffers
+   * `<leader>l` move to line in all visible buffers
+   * `<leader><leader>sx` move to character x in view in current buffer
+   * `<leader><leader>w` move to word from cursor or `b` behind cursor in current buffer
 
 ## FZF - fuzzy file searcher
 
@@ -66,7 +78,7 @@
 
 ## Grep/ AG - text searcher
 
- * `<leader>f` alias to `Gag`
+ * `<leader>g` alias to `Gag`
  * `GGrep text` search in all tracked files using git grep
  * `Ag text` search in current folder with preview
  * `Gag text` search in all tracked files using Ag with preview
