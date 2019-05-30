@@ -38,6 +38,7 @@
  * `:argdo %s/'src/'lib/gi | update` do a search and replace in all files in the args list
  * `:argdo normal @a` execute the macro in register a on all files in the args list
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
+   * `{` and `}` for next and previous paragraph
  * startify: `SSave` and `SSLoad` for sessions
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line
  * diffing/merging:

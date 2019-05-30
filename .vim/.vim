@@ -1,1 +1,1 @@
-/Users/nicholasmeldrum/dotfiles/.vim
+/Users/nickmeldrum/dotfiles/.vim
