@@ -40,6 +40,14 @@
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
  * startify: `SSave` and `SSLoad` for sessions
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line
+ * diffing/merging:
+   * `GetLeft` or `:diffget //2` get left changes
+   * `GetRight` or `:diffget //3` get right changes
+   * `GetRemote` or `:diffget RE` get remote changes
+   * `GetLocal` or `:diffget LO` get local changes
+   * `GetBase` or `:diffget BA` get base changes
+   * `NextChange` or `]c` move to next change
+   * `PreviousChange` or `[c` move to previous change
  * Terminal mode:
    * `terminal` to enter terminal mode
    * `i` to enter and `ESC` to leave

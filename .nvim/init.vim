@@ -395,6 +395,11 @@ autocmd BufLeave term://* stopinsert
 """"""""""""""""""""""""""""""""
 command! GetLeft :diffget //2
 command! GetRight :diffget //3
+command! GetRemote :diffget RE
+command! GetLocal :diffget LO
+command! GetBase :diffget BA
+command! NextChange ]c
+command! PreviousChange [c
 
 
 
