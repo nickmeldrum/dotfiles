@@ -4,3 +4,4 @@
 .vim/plugged/*
 .nvim/plugged/*
 .nvim/undo-dir/*
+.DS_Store

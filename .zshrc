@@ -105,7 +105,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+#. "/usr/local/opt/nvm/nvm.sh"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -126,6 +126,7 @@ export PATH=/Users/nickmeldrum/Library/Python/3.6/bin:$PATH
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
+source ~/.client_specific
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

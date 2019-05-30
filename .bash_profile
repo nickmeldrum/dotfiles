@@ -35,11 +35,7 @@ function log() {
 }
 
 function cheat() {
-  cat ~/dotfiles/bash-cheatsheet.md
-}
-
-function replace() {
-  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
+  cat ~/dotfiles/cheatsheet.md
 }
 
 function replace() {
@@ -52,7 +48,7 @@ function create-github-repo() {
         return
     fi
 
-    TOKEN="$(security 2>&1 >/dev/null find-generic-password -ga github-token | awk -F'"' '{ print $2 }')"
+    TOKEN="$(security find-generic-password -a nickmeldrum -s github-token -w)"
     curl "https://api.github.com/user/repos?access_token=${TOKEN}" -d "{\"name\":\"${1}\"}" -v
     git remote rm origin
     git remote add origin "https://github.com/nickmeldrum/${1}.git"
@@ -110,8 +106,19 @@ function rebaseBranchOnLatestMaster() {
   git rebase master
 }
 
+alias cleanignored="git clean -Xfd" # i.e. delete anything in the .gitignore
+alias cleanuntracked="git clean -fd" # i.e. delete anything showing in git status as "untracked" but keep anything in .gitignore
+alias cleanall="git clean -xfd" # like you just did a git clone - delete .gitignored files + untracked files
+
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="\vim"
 
+alias gamend="g commit --amend --no-edit"
+
 cheat
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi

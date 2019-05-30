@@ -2,23 +2,69 @@
 
 #brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
 
 #zsh
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 #dotfiles
-./install
+./link-dotfiles
 
 #node
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-nvm install
+nvm install --lts
+nvm install node
+nvm use node
+npm install npm -g
+npm install yarn -g
 
 # vim
 rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall 
 
+# ruby
+brew install rbenv
+rbenv init
+
+# python
+brew install pyenv
+pyenv install 2.7.15
+pyenv global 2.7.15
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+brew install libtool libevent automake
+
 # neovim
 brew install neovim fzf the_silver_searcher
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
+# fonts
+mkdir -p ~/Library/Fonts
+cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Bold.ttf' ; cd -; }
+cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Light.ttf' ; cd -; }
+cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Medium.ttf' ; cd -; }
+cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Regular.ttf' ; cd -; }
+cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Retina.ttf' ; cd -; }
+
+mv fonts/dm-Regular.ttf ~/Library/Fonts/DankMono-Regular.ttf
+mv fonts/dm-Italic.ttf ~/Library/Fonts/DankMono-Italic.ttf
+
+# iterm
+mkdir -p ~/Downloads
+cd ~/Downloads
+curl -L -o iterm.zip https://iterm2.com/downloads/stable/latest
+unzip -q iterm.zip
+rm iterm.zip
+mv iTerm.app /Applications
+cd -
+echo remember to set 'load customer preferences to a custom folder' in iterm prefs
+
+
+#hyper
+brew cask install hyper
+
+
+#colorlsd and fonticons
+brew install lsd
+brew install fontforge

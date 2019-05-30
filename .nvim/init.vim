@@ -26,30 +26,27 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 Plug 'carlitux/deoplete-ternjs'
 " typescript autocomplete
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
-Plug 'mhartington/deoplete-typescript'
-
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'rudism/deoplete-tsuquyomi'
 
 " linting
 " """"""""""""
-Plug 'neomake/neomake', { 'on': 'Neomake' }
-
+Plug 'neomake/neomake'
 
 " files
 " """"""""""""
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'rking/ag.vim'
-
+Plug 'dbakker/vim-projectroot'
 
 " buffers
 " """"""""""""
 Plug 'jlanzarotta/bufexplorer'
 Plug 'mhinz/vim-startify'
 Plug 'rbgrouleff/bclose.vim'
-
 
 " ctags
 " """""""""""
@@ -59,11 +56,11 @@ Plug 'ludovicchabant/vim-gutentags'
 " """""""""""
 Plug 'tpope/vim-fugitive'
 
-
 " editing
 " """"""""""""
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
+Plug 'dhruvasagar/vim-table-mode'
 
 " statusline
 " """"""""""""""""
@@ -71,8 +68,14 @@ Plug 'bling/vim-airline'
 
 " color schemes
 " """"""""""""""""""
+Plug 'rainglow/vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'mhartington/oceanic-next'
+
+" viewing
+" """"""""""""""""
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -84,7 +87,11 @@ call plug#end()
 " nerdtree
 " close vim if nerdtree only window left open
 autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-autocmd BufEnter * lcd %:p:h
+
+" set working dir to current file (silently fail because otherwise fugitive
+" gets upset)
+" (note we could use set autochdir - not sure why i don't)
+autocmd BufEnter * silent! lcd %:p:h
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -96,6 +103,7 @@ let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
 let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 " call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+let g:deoplete#sources#tss#javascript_support = 1
 
 " neosnippet
 let g:neosnippet#enable_completed_snippet = 1
@@ -105,30 +113,42 @@ let g:tern_request_timeout = 1
 let g:tern_request_timeout = 6000
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
-let g:deoplete#sources#tss#javascript_support = 1
+
+" tsuquyomi
+let g:tsuquyomi_completion_detail = 1
 let g:tsuquyomi_javascript_support = 1
 let g:tsuquyomi_auto_open = 1
 let g:tsuquyomi_disable_quickfix = 1
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-
-autocmd! BufWritePost * Neomake
-let g:neomake_warning_sign = {
-  \ 'text': '?',
-  \ 'texthl': 'WarningMsg',
-  \ }
-
-let g:neomake_error_sign = {
-  \ 'text': 'X',
-  \ 'texthl': 'ErrorMsg',
-  \ }
+let g:neomake_typescript_enabled_makers = ['tslint']
+call neomake#configure#automake('w')
+"autocmd! BufWritePost * Neomake
 
 " fzf
+" run grep in whole git dir
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)<Paste>
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
+" Ag command with preview (type ? to show in normal view)
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%', '?'),
+  \                 <bang>0)
+
+command! -bang -nargs=+ -complete=dir GagAllSrc
+        \ call fzf#vim#ag_raw(<q-args> . ' ~/src',
+        \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+" Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir GFiles
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 function! s:find_git_root()
 	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -140,10 +160,10 @@ command! ProjectFiles execute 'GFiles' s:find_git_root()
 set background=dark
 
 colorscheme palenight
-" let g:palenight_terminal_italics=1
-
-"colorscheme OceanicNext
+let g:palenight_terminal_italics=1
 let g:airline_theme='oceanicnext'
+
+
 
 """""" APP """""""""""
 """"""""""""""""""""""
@@ -221,11 +241,47 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " map control -n to next buffer
-:nnoremap <C-n> :bnext<CR>
+nnoremap <C-n> :bnext<CR>
 
 " scroll buffer while keeping cursor on same line relative to viewport
-map <c-j> j<c-e>
-map <c-k> k<c-y>
+noremap <c-j> j<c-e>
+noremap <c-k> k<c-y>
+
+" map ctrl-p to fuzzy file searching in root of git repo
+noremap <C-P> :GFiles<CR>
+noremap <leader>p :GFiles<CR>
+
+" map leader-f to fuzzy text searching in root of git repo
+noremap <leader>g :Gag<CR>
+noremap <leader>G :GGrep<CR>
+command! Gag :ProjectRootExe Ag
+
+" some default colorscheme choices
+nnoremap <leader>1 :colorscheme palenight<CR>
+nnoremap <leader>2 :colorscheme oceanicnext<CR>
+nnoremap <leader>3 :colorscheme soup<CR>
+nnoremap <leader>4 :colorscheme mud<CR>
+nnoremap <leader>5 :colorscheme absent<CR>
+nnoremap <leader>6 :colorscheme bold<CR>
+nnoremap <leader>7 :colorscheme azure<CR>
+nnoremap <leader>8 :colorscheme piggy<CR>
+nnoremap <leader>9 :colorscheme glowfish<CR>
+nnoremap <leader>0 :colorscheme industry<CR>
+
+" terminal mode
+"tnoremap <Esc> <C-\><C-n>
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 
 
@@ -238,11 +294,15 @@ set splitright
 set foldlevel=99
 set foldmethod=indent
 
-autocmd! BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd! BufNewFile,BufReadPost *.vm set filetype=vim
+autocmd! BufNewFile,BufReadPost *.md set filetype=markdown | set syntax=markdown
 
 " start editing last file
 command! GoL :e#
+
+" reader mode
+command! ReaderMode :Goyo | :Limelight | set norelativenumber | set nonumber
+command! ReaderModeOff :Goyo | :Limelight! | set relativenumber
+
 
 
 """""""" FILES """""""""
@@ -323,11 +383,25 @@ command! RemoveAllTrailingWhitespace call RemoveTrailingWhitespaceFromFile()
 
 
 
+""""""""""" terminal """""""""" 
+""""""""""""""""""""""""""""""""
+
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+
+
+
 """""""""" Diffing """"""""""
 """"""""""""""""""""""""""""""""
 command! GetLeft :diffget //2
 command! GetRight :diffget //3
 
+
+
+"""""""""" Git """"""""""
+""""""""""""""""""""""""""""""""
+command! GitPull :Git pull
+command! GitPush :Git push
 
 
 """""""""" JavaScript """"""""""
@@ -400,3 +474,32 @@ function! DoPrettyXML()
     exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+
+set mouse=a
+
+
+
+""""""""""""""  Arithmetic  """"""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! Sum :normal vt xi<C-r>=<C-r>"<CR><Esc>
+
+
+
+""""" easy motion """"""
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
