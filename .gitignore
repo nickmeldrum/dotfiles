@@ -2,6 +2,6 @@
 .netrwhist
 .vim/undo-dir/*
 .vim/plugged/*
-.nvim/plugged/*
-.nvim/undo-dir/*
+nvim/plugged/*
+nvim/undo-dir/*
 .DS_Store

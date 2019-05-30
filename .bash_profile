@@ -9,6 +9,9 @@ alias myipaddress='ifconfig | grep "inet " | grep -v "127.0.0.1" | awk "{print \
 
 alias g="git"
 
+alias latestfiles="ls -1t | head -5"
+alias oldestfiles="ls -1t | tail -5"
+
 function blatdocker() {
   docker stop $(docker ps -a -q)
   docker rm $(docker ps -a -q)
