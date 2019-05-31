@@ -98,6 +98,9 @@
    * `Gcommit` git commit (will bring up buffer to write message)
    * `GitPull` to pull changes
    * `GitPush` to push changes
+ * Linting:
+   * Neomake should lint on changes for eslint by default using local eslint install
+   *  `<leader>j` to write,eslint fix,read current buffer
  * Expression register
    * `<C>r` in insert mode to e.g. do arithmetic: `<C>r=2+2` will insert `4`
    * when in command line to paste a register use `<C>r"` e.g. if the word foo is in the default register, replace foo with bar in whole document like: `%s/<C>r"/bar/g`
