@@ -34,6 +34,7 @@ Plug 'rudism/deoplete-tsuquyomi'
 " linting
 " """"""""""""
 Plug 'neomake/neomake'
+Plug 'benjie/neomake-local-eslint.vim'
 
 " files
 " """"""""""""
@@ -122,9 +123,10 @@ let g:tsuquyomi_disable_quickfix = 1
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_typescript_enabled_makers = ['tslint']
-call neomake#configure#automake('w')
-"autocmd! BufWritePost * Neomake
+let g:neomake_typescript_enabled_makers = ['eslint']
+call neomake#configure#automake('rnw', 200)
+command! Fix :w | silent execute "!" . "npx eslint" . " " . bufname("%") . " --fix" | :e
+nnoremap <leader>j :silent :Fix<CR>
 
 " fzf
 " run grep in whole git dir
