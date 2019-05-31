@@ -47,8 +47,8 @@ cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/
 cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Regular.ttf' ; cd -; }
 cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Retina.ttf' ; cd -; }
 
-mv fonts/dm-Regular.ttf ~/Library/Fonts/DankMono-Regular.ttf
-mv fonts/dm-Italic.ttf ~/Library/Fonts/DankMono-Italic.ttf
+cp fonts/dm-Regular.ttf ~/Library/Fonts/DankMono-Regular.ttf
+cp fonts/dm-Italic.ttf ~/Library/Fonts/DankMono-Italic.ttf
 
 # iterm
 mkdir -p ~/Downloads

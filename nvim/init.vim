@@ -493,12 +493,12 @@ command! Sum :normal vt xi<C-r>=<C-r>"<CR><Esc>
 
 """"" easy motion """"""
 
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" <Leader>c{char} to move to {char}
+map  <Leader>c <Plug>(easymotion-bd-f)
+nmap <Leader>c <Plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
+nmap <Leader>s <Plug>(easymotion-overwin-f2)
 
 " Move to line
 map <Leader>l <Plug>(easymotion-bd-jk)

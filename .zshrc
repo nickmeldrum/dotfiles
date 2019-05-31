@@ -119,6 +119,15 @@ if [ -f '/Users/tpunmeld/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/t
 if [ -f '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH=/Users/nickmeldrum/Library/Python/3.6/bin:$PATH
 
+export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
+export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
@@ -135,3 +144,5 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
