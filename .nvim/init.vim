@@ -59,6 +59,7 @@ Plug 'tpope/vim-fugitive'
 " editing
 " """"""""""""
 Plug 'tpope/vim-surround'
+Plug 'machakann/vim-swap'
 Plug 'easymotion/vim-easymotion'
 Plug 'dhruvasagar/vim-table-mode'
 
@@ -171,6 +172,13 @@ let g:airline_theme='oceanicnext'
 " turn off compatibility mode from vi
 set nocompatible
 
+" modelines = feature to set vim features based on lines in opened file -
+" potential security vulnerability
+set nomodeline
+
+" don't redraw in the middle of a macro
+set lazyredraw
+
 " No annoying sound on errors
 set noerrorbells
 set t_vb=
@@ -186,6 +194,8 @@ set showcmd
 if (has("termguicolors"))
  set termguicolors
 endif
+
+set undofile
 
 """""""""" STATUS LINE """""""
 """"""""""""""""""""""""""""""

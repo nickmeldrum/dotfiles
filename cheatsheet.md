@@ -34,11 +34,18 @@
 
 # Vim
 
- * `:args **/*.mjs` load all js files into the args list
- * `:argdo %s/'src/'lib/gi | update` do a search and replace in all files in the args list
- * `:argdo normal @a` execute the macro in register a on all files in the args list
+ * General commands:
+   * `q:` open command list of previous commands, can modify them and rerun by hitting `<CR>`
+   * `q/` same as above for search history (`<CTRL>C` to quit command list)
+   * `<CTRL>I, <CTRL>O` move forwards, backwards through jumplist
+   * `:args **/*.mjs` load all js files into the args list
+   * `:argdo %s/'src/'lib/gi | update` do a search and replace in all files in the args list
+   * `:argdo normal @a` execute the macro in register a on all files in the args list
+ * the power of g:
+   * `:g/regex/norm wdw`: for all lines that match the regex execute the normal commands: (example will delete the second word)
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
  * startify: `SSave` and `SSLoad` for sessions
+ * `g>` or `g<` or `gs` - vim-swap arguments for reordering arguments
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line
  * Terminal mode:
    * `terminal` to enter terminal mode
@@ -54,6 +61,7 @@
    * `GitPush` to push changes
  * Expression register
    * `<C>r` in insert mode to e.g. do arithmetic: `<C>r=2+2` will insert `4`
+   * `"=` in normal mode e.g. past in local timestamp: `"=strftime("%c")<CR>p"
    * when in command line to paste a register use `<C>r"` e.g. if the word foo is in the default register, replace foo with bar in whole document like: `%s/<C>r"/bar/g`
    * `Sum` will take a sum (ending in a space) and replace it in the buffer with the answer
 
