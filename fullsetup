@@ -22,7 +22,7 @@ npm install yarn -g
 # vim
 rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall 
+oldvim +PluginInstall +qall 
 
 # ruby
 brew install rbenv
@@ -47,8 +47,8 @@ cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/
 cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Regular.ttf' ; cd -; }
 cd ~/Library/Fonts && { curl -O 'https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-Retina.ttf' ; cd -; }
 
-mv fonts/dm-Regular.ttf ~/Library/Fonts/DankMono-Regular.ttf
-mv fonts/dm-Italic.ttf ~/Library/Fonts/DankMono-Italic.ttf
+cp fonts/dm-Regular.ttf ~/Library/Fonts/DankMono-Regular.ttf
+cp fonts/dm-Italic.ttf ~/Library/Fonts/DankMono-Italic.ttf
 
 # iterm
 mkdir -p ~/Downloads

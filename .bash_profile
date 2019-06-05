@@ -1,13 +1,49 @@
-alias killvs="ps -W | awk '/devenv.exe/,NF=1' | xargs kill -9 -f"
-alias vs="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe'"
-alias vsscribe="cygstart.exe 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe' d:/prod/scribestar.sln"
+##################################################
+##########  CHEATSHEET  ##########################
+##################################################
 
-alias killnode="ps | awk '/node.exe/,NF=1' | xargs kill -9 -f"
+alias wholecheat="less ~/dotfiles/cheatsheet.md"
+alias cheat="cat ~/dotfiles/cheatsheet.md | grep -B 2 -A 5 $2"
+cat ~/dotfiles/cheatsheet.md
 
-alias debughex="cat /dev/urandom | hexdump -C | grep 'ca fe'"
+##################################################
+##########  VIM  #################################
+##################################################
+
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="\vim"
+
+##################################################
+##########  NETWORKING  ##########################
+##################################################
+
 alias myipaddress='ifconfig | grep "inet " | grep -v "127.0.0.1" | awk "{print \$2}"'
 
-alias g="git"
+##################################################
+##########  FILES AND FOLDERS  ###################
+##################################################
+
+function replace() {
+  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
+}
+
+function execline() {
+    sed -n $1p $2 | source /dev/stdin
+}
+
+alias latestfiles="ls -1t | head -5"
+alias oldestfiles="ls -1t | tail -5"
+
+##################################################
+##########  FUN  #################################
+##################################################
+
+alias debughex="cat /dev/urandom | hexdump -C | grep 'ca fe'"
+
+##################################################
+##########  CLEANUP STUFF  #######################
+##################################################
 
 function blatdocker() {
   docker stop $(docker ps -a -q)
@@ -15,14 +51,27 @@ function blatdocker() {
   docker rmi $(docker images -q)
 }
 
-function execline() {
-    sed -n $1p $2 | source /dev/stdin
-}
+alias killnode="ps | awk '/node.exe/,NF=1' | xargs kill -9 -f"
+
+##################################################
+##########  GIT STUFF  ###########################
+##################################################
+
+alias g="git"
 
 function acg() {
     git add .
     git commit -v -m "$1"
 }
+
+alias gamend="g commit --amend --no-edit"
+
+alias cleanignored="git clean -Xfd" # i.e. delete anything in the .gitignore
+alias cleanuntracked="git clean -fd" # i.e. delete anything showing in git status as "untracked" but keep anything in .gitignore
+alias cleanall="git clean -xfd" # like you just did a git clone - delete .gitignored files + untracked files
+
+alias loggraph="git --no-pager log --graph -40 --pretty=format:'%h %ad %an %s' --"
+alias logfile="git --no-pager log --pretty=format:'%C(yellow)%h %Cred%ad %C(yellow)%an%Cgreen%d %Creset%s' --date=short --"
 
 function log() {
     if [ "$#" -ne 1 ]; then
@@ -34,12 +83,23 @@ function log() {
     git --no-pager log -$length --pretty=format:'%C(yellow)%h %Cred%ad %C(yellow)%an%Cgreen%d %Creset%s' --date=short
 }
 
-function cheat() {
-  cat ~/dotfiles/cheatsheet.md
+function updateBranchToRemoteMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git merge
+  git merge master
 }
 
-function replace() {
-  find . -type f -name "$1" | xargs sed -i '' -e s/$2/$3/g
+function rebaseBranchOnLatestMaster() {
+  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
+  git checkout master
+  git fetch
+  git merge
+  git checkout $CUR_BRANCH
+  git rebase master
 }
 
 function create-github-repo() {
@@ -83,42 +143,3 @@ function new-node-kata-project() {
     echo "app in file 'lib/index.js', tests in file 'test/test.js'"
     echo "run the watcher with command 'npm run watch'"
 }
-
-export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
-export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
-
-function updateBranchToRemoteMaster() {
-  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
-  git checkout master
-  git fetch
-  git merge
-  git checkout $CUR_BRANCH
-  git merge
-  git merge master
-}
-
-function rebaseBranchOnLatestMaster() {
-  CUR_BRANCH="$(git branch | grep \* | cut -c 3- -)"
-  git checkout master
-  git fetch
-  git merge
-  git checkout $CUR_BRANCH
-  git rebase master
-}
-
-alias cleanignored="git clean -Xfd" # i.e. delete anything in the .gitignore
-alias cleanuntracked="git clean -fd" # i.e. delete anything showing in git status as "untracked" but keep anything in .gitignore
-alias cleanall="git clean -xfd" # like you just did a git clone - delete .gitignored files + untracked files
-
-alias vim="nvim"
-alias vi="nvim"
-alias oldvim="\vim"
-
-alias gamend="g commit --amend --no-edit"
-
-cheat
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
