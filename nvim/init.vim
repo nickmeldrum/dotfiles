@@ -127,7 +127,7 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_typescript_enabled_makers = ['eslint']
 call neomake#configure#automake('rnw', 200)
 command! Fix :w | silent execute "!" . "npx eslint" . " " . bufname("%") . " --fix" | :e
-nnoremap <leader>j :silent :Fix<CR>
+nnoremap <leader>j :Fix<CR>
 
 " fzf
 " run grep in whole git dir
@@ -294,6 +294,9 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+" rename local variable
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 
 
 

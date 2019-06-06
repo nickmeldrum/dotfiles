@@ -80,6 +80,12 @@
    * `:argdo normal @a` execute the macro in register a on all files in the args list
  * the power of g:
    * `:g/regex/norm wdw`: for all lines that match the regex execute the normal commands: (example will delete the second word)
+ * Renaming variables:
+   * `gd` - goto definition, then
+   * `[{` - jump to scope that wraps the definition
+   * `v%` - visually select whole scope
+   * `:s/var/newvar/g` - within selection do the replacement
+   * NOTE: `gr` will do all above and land in the `:s` command waiting for you to type your new variable name
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
    * `{` and `}` for next and previous paragraph
  * startify: `SSave` and `SSLoad` for sessions
