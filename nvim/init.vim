@@ -34,7 +34,7 @@ Plug 'rudism/deoplete-tsuquyomi'
 " linting
 " """"""""""""
 Plug 'neomake/neomake'
-Plug 'benjie/neomake-local-eslint.vim'
+Plug 'benjie/local-npm-bin.vim'
 
 " files
 " """"""""""""
@@ -124,7 +124,36 @@ let g:tsuquyomi_disable_quickfix = 1
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_typescript_enabled_makers = ['eslint']
+
+let b:neomake_typescript_tslint_exe = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0] . '/node_modules/.bin/tslint'
+
+function! SetupGDWTSLinting()
+  let gitdir = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0]
+  let packagedir = join(split(findfile('package.json', '.;'), '/')[:-2], '/')
+  if packagedir == ''
+    let packagedir = '.'
+  else
+    let packagedir = '/' . packagedir
+  endif
+
+  let g:neomake_typescript_gdw_maker = {
+      \ 'exe': gitdir . '/node_modules/.bin/tslint',
+      \ 'args': ['--project', packagedir . '/tsconfig.build.json', '--config', gitdir . '/tslint.json', '--format', 'prose'],
+      \ 'errorformat': '%-G,'
+          \ .'%EERROR: %f:%l:%c - %m,'
+          \ .'%WWARNING: %f:%l:%c - %m,'
+          \ .'%EERROR: %f[%l\, %c]: %m,'
+          \ .'%WWARNING: %f[%l\, %c]: %m',
+      \ }
+
+  let g:neomake_typescript_enabled_makers = ['gdw']
+endfunction
+
+command! GdwTslint call SetupGDWTSLinting()
+
+"let g:neomake_verbose=3
+"let g:neomake_logfile='/Users/nicholasmeldrum/neomake_error.log'
+
 call neomake#configure#automake('rnw', 200)
 command! Fix :w | silent execute "!" . "npx eslint" . " " . bufname("%") . " --fix" | :e
 nnoremap <leader>j :Fix<CR>
@@ -159,12 +188,15 @@ endfunction
 
 command! ProjectFiles execute 'GFiles' s:find_git_root()
 
+" airline
+let g:airline_theme='oceanicnext'
+let g:airline#extensions#branch#displayed_head_limit = 10
+
 " colorschemes
 set background=dark
 
 colorscheme palenight
 let g:palenight_terminal_italics=1
-let g:airline_theme='oceanicnext'
 
 
 
