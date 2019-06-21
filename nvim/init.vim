@@ -245,8 +245,12 @@ nnoremap : ;
 
 inoremap jk <ESC>
 
+" remap increment/ decrement number to use ctrl-a as select all
+noremap + <C-A>
+noremap - <C-X>
+
 " select all with ctrl-a
-nmap <C-A> mzgg^V$G
+nnoremap <C-A> mzgg^V$G
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent

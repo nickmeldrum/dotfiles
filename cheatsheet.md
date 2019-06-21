@@ -15,6 +15,10 @@
    * `imgcat filename` preview image in terminal
    * `imgls` preview images in a directory listing
    * `<CMD><OPT>A` 'alert on next mark - i.e. bring up toast when command is finished
+ * Graph Visualisations with GraphViz:
+   * `brew install graphviz` install graphviz
+   * `npm i nodemon -g` install nodemon for watching changes to dot file
+   * `nodemon -w test.dot --exec "dot -Tpng test.dot -o outfile.png && open outfile.png"` set up nodemon to watch the dot file and open the dot generated output png on every change
 
 # Aws cli
 
