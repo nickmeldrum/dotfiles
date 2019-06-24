@@ -27,7 +27,7 @@
 [push]
 	default = simple
 [core]
-	editor = vim
+	editor = nvim
 	longpaths = true
 	excludesfile = ~/.globalgitignore
     #pager = cat

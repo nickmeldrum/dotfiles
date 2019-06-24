@@ -102,13 +102,29 @@ function rebaseBranchOnLatestMaster() {
   git rebase master
 }
 
+function 1PasswordKey() {
+  op get item $1 | jq -r '.details.password'
+}
+
+function 1PasswordPassword() {
+  op get item $1 | jq -r '.details.fields[] | select(.designation == "password") | .value'
+}
+
+function 1PasswordLogin() {
+  export OP_SESSION_my="$(op signin my.1password.com nick@nickmeldrum.com --output=raw)"
+}
+
+function 1PasswordLogout() {
+  op signout
+}
+
 function create-github-repo() {
     if [ "$#" -ne 1 ]; then
         echo "please pass in a repo name"
         return
     fi
 
-    TOKEN="$(security find-generic-password -a nickmeldrum -s github-token -w)"
+    local TOKEN=$(1PasswordKey github-token)
     curl "https://api.github.com/user/repos?access_token=${TOKEN}" -d "{\"name\":\"${1}\"}" -v
     git remote rm origin
     git remote add origin "https://github.com/nickmeldrum/${1}.git"
