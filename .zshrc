@@ -144,9 +144,5 @@ eval "$(pyenv init -)"
 
 nvm use node
 
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/nickmeldrum/src/lambda-talk/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/nickmeldrum/src/lambda-talk/serverless/node_modules/tabtab/.completions/slss.zsh
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform

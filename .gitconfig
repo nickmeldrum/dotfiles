@@ -20,8 +20,10 @@
 	cmd = vim -f -c vdiff
 [merge]
 	tool = vimdiff
-[mergetool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "fugitive"]
 	cmd = vim -f -c vdiff $MERGED
 [push]
@@ -35,18 +37,11 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-[credential]
-    #helper = !'D:\\nickmeldrum\\gitcredentialstore\\git-credential-winstore\\bin\\Debug\\git-credential-winstore.exe'
-    #helper = osxkeychain
 [mergetool]
 	keepBackup = false
 [difftool]
 	prompt = false
 [github]
 	user = nickmeldrum
-[ghi]
-	token = !security find-internet-password -a nickmeldrum -s github.com -l 'ghi token' -w
 [http]
     sslVerify = false
-[credential]
-	helper = osxkeychain
