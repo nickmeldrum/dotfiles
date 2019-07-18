@@ -92,6 +92,10 @@
    * NOTE: `gr` will do all above and land in the `:s` command waiting for you to type your new variable name
  * `ReaderMode` and `ReaderModeOff` - distraction free writing using `Goyo` and `Limelight`
    * `{` and `}` for next and previous paragraph
+ * spell checking:
+   * `:set spell` turn it on `:set nospell` turn it off
+   * `]s` and `[s` move to next / previous misspelling
+   * `z=` suggest an alternative
  * startify: `SSave` and `SSLoad` for sessions
  * `g>` or `g<` or `gs` - vim-swap arguments for reordering arguments
  * table mode: ` tm` toggle table mode - then markdown tables will auto-align on pipes. `||` will create horizontal line

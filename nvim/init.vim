@@ -124,10 +124,12 @@ let g:tsuquyomi_disable_quickfix = 1
 
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_typescript_enabled_makers = ['eslint']
 
-let b:neomake_typescript_tslint_exe = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0] . '/node_modules/.bin/tslint'
+"let g:neomake_typescript_enabled_makers = ['tslint']
+"let b:neomake_typescript_tslint_exe = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0] . '/node_modules/.bin/tslint'
 
-function! SetupGDWTSLinting()
+function! DoGdwTypescriptSetup()
   let gitdir = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0]
   let packagedir = join(split(findfile('package.json', '.;'), '/')[:-2], '/')
   if packagedir == ''
@@ -136,8 +138,9 @@ function! SetupGDWTSLinting()
     let packagedir = '/' . packagedir
   endif
 
-  let g:neomake_typescript_gdw_maker = {
+  let g:neomake_typescript_gdwlint_maker = {
       \ 'exe': gitdir . '/node_modules/.bin/tslint',
+      \ 'auto_enabled': 1,
       \ 'args': ['--project', packagedir . '/tsconfig.build.json', '--config', gitdir . '/tslint.json', '--format', 'prose'],
       \ 'errorformat': '%-G,'
           \ .'%EERROR: %f:%l:%c - %m,'
@@ -146,10 +149,12 @@ function! SetupGDWTSLinting()
           \ .'%WWARNING: %f[%l\, %c]: %m',
       \ }
 
-  let g:neomake_typescript_enabled_makers = ['gdw']
+  let g:neomake_typescript_enabled_makers = ['gdwlint']
+  Neomake
 endfunction
 
-command! GdwTslint call SetupGDWTSLinting()
+command! GdwTypescriptSetup call DoGdwTypescriptSetup()
+autocmd! BufRead,BufEnter,BufNewFile /Users/nicholasmeldrum/src/gdw/* GdwTypescriptSetup
 
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/Users/nicholasmeldrum/neomake_error.log'
@@ -253,8 +258,8 @@ syntax enable
 
 " tabbing
 set smarttab
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 " Use spaces instead of tabs
 set expandtab
 
@@ -317,19 +322,13 @@ nnoremap <leader>9 :colorscheme glowfish<CR>
 nnoremap <leader>0 :colorscheme industry<CR>
 
 " terminal mode
-"tnoremap <Esc> <C-\><C-n>
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <Esc> <C-\><C-n>
+
+tnoremap <C-h> <C-\><C-N><C-w>h
+" tnoremap <C-S-j> <C-\><C-N><C-w>j " commenting out because it interferes
+" with AG usage....
+" tnoremap <C-S-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
 
 " rename local variable
 nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
