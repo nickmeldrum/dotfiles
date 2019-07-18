@@ -20,14 +20,16 @@
 	cmd = vim -f -c vdiff
 [merge]
 	tool = vimdiff
-[mergetool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "fugitive"]
 	cmd = vim -f -c vdiff $MERGED
 [push]
 	default = simple
 [core]
-	editor = vim
+	editor = nvim
 	longpaths = true
 	excludesfile = ~/.globalgitignore
     #pager = cat
