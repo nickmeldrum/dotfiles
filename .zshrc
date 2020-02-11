@@ -100,12 +100,13 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.bash_profile
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export NVM_DIR="$HOME/.nvm"
-#. "/usr/local/opt/nvm/nvm.sh"
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+  alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
+  alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
+  alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
+fi
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -121,13 +122,6 @@ if [ -f '/Users/tpunmeld/google-cloud-sdk/completion.zsh.inc' ]; then source '/U
 export PATH=/Users/nickmeldrum/Library/Android/sdk:$PATH
 export PATH=/Users/nickmeldrum/Library/Android/sdk/platform-tools:$PATH
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nickmeldrum/.nvm/versions/node/v10.4.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
 FILE=~/.client_specific
 if test -f "$FILE"; then
     source $FILE
@@ -141,8 +135,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 eval "$(pyenv init -)"
-
-nvm use node
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform

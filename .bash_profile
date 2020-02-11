@@ -159,3 +159,6 @@ function new-node-kata-project() {
     echo "app in file 'lib/index.js', tests in file 'test/test.js'"
     echo "run the watcher with command 'npm run watch'"
 }
+
+export NVM_DIR="/Users/nickmeldrum/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

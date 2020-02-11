@@ -15,21 +15,11 @@
 
 call plug#begin()
 
-" autocompletion
-" """""""""""""""""""""
-" deoplete autocomplete tool
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" For func argument completion
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-" javascript autocomplete
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-Plug 'carlitux/deoplete-ternjs'
-" typescript autocomplete
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'rudism/deoplete-tsuquyomi'
+Plug 'asvetliakov/vim-easymotion'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" https://medium.com/@s1n7ax/neovim-for-typescript-react-development-fdc7082c8a78
+Plug 'ianks/vim-tsx'
+Plug 'leafgarland/typescript-vim'
 
 " linting
 " """"""""""""
@@ -61,7 +51,6 @@ Plug 'tpope/vim-fugitive'
 " """"""""""""
 Plug 'tpope/vim-surround'
 Plug 'machakann/vim-swap'
-Plug 'easymotion/vim-easymotion'
 Plug 'dhruvasagar/vim-table-mode'
 
 " statusline
@@ -73,6 +62,7 @@ Plug 'bling/vim-airline'
 Plug 'rainglow/vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'mhartington/oceanic-next'
+Plug 'dikiaap/minimalist'
 
 " viewing
 " """"""""""""""""
@@ -95,66 +85,12 @@ autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTre
 " (note we could use set autochdir - not sure why i don't)
 autocmd BufEnter * silent! lcd %:p:h
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-" call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-let g:deoplete#sources#tss#javascript_support = 1
-
-" neosnippet
-let g:neosnippet#enable_completed_snippet = 1
-
-" tern
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
-" tsuquyomi
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_javascript_support = 1
-let g:tsuquyomi_auto_open = 1
-let g:tsuquyomi_disable_quickfix = 1
-
 " neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_typescript_enabled_makers = ['eslint']
 
 "let g:neomake_typescript_enabled_makers = ['tslint']
 "let b:neomake_typescript_tslint_exe = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0] . '/node_modules/.bin/tslint'
-
-function! DoGdwTypescriptSetup()
-  let gitdir = split(system('git rev-parse --show-toplevel 2> /dev/null'), '\n')[0]
-  let packagedir = join(split(findfile('package.json', '.;'), '/')[:-2], '/')
-  if packagedir == ''
-    let packagedir = '.'
-  else
-    let packagedir = '/' . packagedir
-  endif
-
-  let g:neomake_typescript_gdwlint_maker = {
-      \ 'exe': gitdir . '/node_modules/.bin/tslint',
-      \ 'auto_enabled': 1,
-      \ 'args': ['--project', packagedir . '/tsconfig.build.json', '--config', gitdir . '/tslint.json', '--format', 'prose'],
-      \ 'errorformat': '%-G,'
-          \ .'%EERROR: %f:%l:%c - %m,'
-          \ .'%WWARNING: %f:%l:%c - %m,'
-          \ .'%EERROR: %f[%l\, %c]: %m,'
-          \ .'%WWARNING: %f[%l\, %c]: %m',
-      \ }
-
-  let g:neomake_typescript_enabled_makers = ['gdwlint']
-  Neomake
-endfunction
-
-command! GdwTypescriptSetup call DoGdwTypescriptSetup()
-autocmd! BufRead,BufEnter,BufNewFile /Users/nicholasmeldrum/src/gdw/* GdwTypescriptSetup
 
 "let g:neomake_verbose=3
 "let g:neomake_logfile='/Users/nicholasmeldrum/neomake_error.log'
@@ -258,8 +194,8 @@ syntax enable
 
 " tabbing
 set smarttab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 " Use spaces instead of tabs
 set expandtab
 
@@ -558,3 +494,136 @@ nmap <Leader>l <Plug>(easymotion-overwin-line)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
+
+
+
+
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+"nmap <silent> <C-d> <Plug>(coc-range-select)
+"xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
