@@ -45,6 +45,7 @@ omap gc <Plug>VSCodeCommentary
 nmap gcc <Plug>VSCodeCommentaryLine
 
 nnoremap <Leader><Space> :call VSCodeNotify('workbench.action.showCommands')<CR>
+nnoremap <silent> <Leader>rn :<C-u>call VSCodeNotify('editor.action.rename')<CR>
 
 " <Leader>c{char} to move to {char}
 nmap <Leader>c <Plug>(easymotion-bd-f)
